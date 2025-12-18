@@ -9,6 +9,11 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   integrations: [icon()],
 
+  server: {
+    host: true,
+    port: 4321
+  },
+
   vite: {
     plugins: [tailwindcss()]
   }

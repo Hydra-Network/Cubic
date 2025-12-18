@@ -54,8 +54,13 @@ const imageURL = "https://user-images.githubusercontent.com/5182256/131216951-8f
       Skip to main content
     </a>
 
-    <main id="main" class="flex flex-grow flex-col">
-      <slot />
-    </main>
+    <div class="flex flex-grow">
+      <aside class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0">
+      </aside>
+      
+      <main id="main" class="flex flex-grow flex-col">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>
