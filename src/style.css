@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+
+
+h2 {
+  @apply text-xl;
+}
+
+h3 {
+  @apply text-lg;
+}
+
+label {
+  @apply text-xs font-medium;
+}
+
+button {
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.1) translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+[data-icon] {
+  stroke-width: 3;
+}
+
+#gmeContainer {
+  overflow-y: overlay; /* scrollable without taking space for scrollbar */
+}

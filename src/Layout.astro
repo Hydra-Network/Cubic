@@ -1,0 +1,61 @@
+---
+import { SEO } from "astro-seo";
+import "@/style.css"
+
+export interface Props {
+  title?: string;
+  desc?: string;
+}
+
+const FILTER_OPTIMIZE_ON = import.meta.env.PUBLIC_FILTER_OPTIMIZE === "true";
+
+const {
+  desc = FILTER_OPTIMIZE_ON
+    ? "Bromine is the ultimate spot where elements meet creativity, making even the toughest equations feel like a breeze. From element matching to chemical reactions, this site turns everyday chemistry into something easy."
+    : "Bromine is a clean and minimal web proxy service.",
+} = Astro.props;
+
+const imageURL = "https://user-images.githubusercontent.com/5182256/131216951-8f74f425-f775-463d-a11b-0e01ad9fce8d.png";
+---
+
+<html lang="en" data-bromine_theme="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title="Cubic"
+      description={desc}
+      openGraph={{
+        basic: {
+          title: "Cubic",
+          type: "website",
+          image: imageURL,
+        }
+      }}
+      twitter={{
+				title: "Cubic",
+				image: imageURL,
+				description: desc,
+        card: "summary_large_image"
+      }}
+      extend={{
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+      }}
+    />
+  </head>
+
+  <body class="bg-slate-900 text-gray-50 flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="bg-slate-800 hover:bg-slate-700 absolute top-4 left-4 z-50 -translate-y-16 transform rounded-md px-4 py-2 opacity-0 shadow-lg transition-all duration-300 ease-in-out focus:translate-y-0 focus:opacity-100"
+    >
+      Skip to main content
+    </a>
+
+    <main id="main" class="flex flex-grow flex-col">
+      <slot />
+    </main>
+  </body>
+</html>
