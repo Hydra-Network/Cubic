@@ -5,7 +5,7 @@ const gmes_text = FILTER_OPTIMIZE_ON ? "gᾰmes" : "games";
 
 (() => {
 	const target = document.querySelector("#gmeContainer");
-	const searchInput = document.getElementById("search");
+	const searchInput = document.getElementById("search_games");
 
 	searchInput.placeholder = `Search from ${gmesData.length} ${gmes_text}`;
 
@@ -119,8 +119,5 @@ const gmes_text = FILTER_OPTIMIZE_ON ? "gᾰmes" : "games";
 
 	document.getElementById("backBtn").addEventListener("click", () => {
 		closegme();
-	});
-	document.getElementById("fullscreenBtn").addEventListener("click", () => {
-		document.getElementById("gmePageFrame").requestFullscreen();
 	});
 })();

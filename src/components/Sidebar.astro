@@ -1,2 +1,17 @@
-<aside class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0">
+---
+import { Icon } from "astro-icon/components";
+---
+
+<aside class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0 p-2">
+  <div
+		class="bg-slate-900 flex w-full max-w-lg items-center rounded-md px-3 shadow"
+  >
+		<Icon name="lucide:search" class="text-slate-400" />
+    <input
+      id="search"
+			type="text"
+			placeholder="Search opened games..."
+      class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
+    />
+  </div>
 </aside>
