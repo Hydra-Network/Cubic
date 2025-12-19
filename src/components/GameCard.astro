@@ -1,0 +1,39 @@
+---
+export interface Props {
+  file_name: string;
+  title: string;
+  thumb: string | null;
+  frame: string;
+}
+
+const { file_name, title, thumb, frame } = Astro.props;
+
+const thumb_url = thumb
+	? `https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/${thumb}`
+  : null;
+---
+
+<div
+  data-title={title}
+  onclick=`opengme('${file_name}', '${title}', '${frame}')`
+  class="game-card bg-slate-900 border border-slate-700 rounded-xl p-3 m-2 inline-block w-64 text-center shadow-sm transition-transform duration-200 hover:scale-105 cursor-pointer"
+>
+  {
+    thumb_url ? (
+		<img
+		    src={thumb_url}
+		    loading="eager"
+        decoding="async"
+		    alt={title}
+		    height="230"
+		    width="230"
+        class="w-full h-40 object-cover rounded-lg mb-2"
+      />
+    ) : (
+      <div class="w-full h-40 rounded-lg bg-slate-800 mb-2 flex items-center justify-center">
+        <p class="text-slate-500">No Image</p>
+      </div>
+    )
+  }
+  <h3 class="mt-2 font-medium truncate">{title}</h3>
+</div>

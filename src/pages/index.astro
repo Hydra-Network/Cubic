@@ -1,45 +1,125 @@
 ---
 import Layout from "@/Layout.astro";
 import { Icon } from "astro-icon/components";
+import gmesData from "@/gmes.json";
+import GameCard from "@/components/GameCard.astro";
+
+const allGmes = [...gmesData].sort((a, b) =>
+	a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
+);
 ---
 
 <Layout>
-  <script src="@/gmes.ts"></script>
+	<div
+		class="sticky top-0 z-50 flex justify-center py-3 shadow-md backdrop-blur"
+	>
+		<div
+			class="bg-slate-800 flex w-full max-w-xl items-center rounded-md px-3 shadow"
+		>
+			<Icon name="lucide:search" class="text-slate-400 size-5" />
+			<input
+				id="search_games"
+				type="text"
+				class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
+				placeholder={`Search from ${gmesData.length} games`}
+			/>
+		</div>
+	</div>
 
-  <div
-    class="sticky top-0 z-50 flex justify-center py-3 shadow-md backdrop-blur"
-  >
-    <div
-      class="bg-slate-800 flex w-full max-w-xl items-center rounded-md px-3 shadow"
-    >
-      <Icon name="lucide:search" class="text-slate-400 size-5" />
-      <input
-        id="search_games"
-        type="text"
-        class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
-      />
-    </div>
-  </div>
+	<section id="gmes" class="flex flex-wrap justify-center gap-2.5 p-2.5">
+		{allGmes.map((gme) => <GameCard {...gme} />)}
+	</section>
 
-  <section id="gmes"></section>
-  <div id="gme" class="bg-slate-800/90 fixed inset-0 z-[999] hidden">
-    <h2
-      id="title"
-      class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
-    >
-    </h2>
+	<div id="gme" class="bg-slate-800/90 fixed inset-0 z-[999] hidden">
+		<h2
+			id="title"
+			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
+		>
+		</h2>
 
-    <button
-      id="back"
-      class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center rounded-lg border-0 px-4 py-2 transition"
-    >
-      <Icon name="lucide:x" class="size-5" />
-      Close
-    </button>
+		<button
+			id="back"
+			class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center rounded-lg border-0 px-4 py-2 transition"
+		>
+			<Icon name="lucide:x" class="size-5" />
+			Close
+		</button>
 
-    <iframe
-      id="frame"
-      class="absolute top-0 left-0 h-full w-full border-none"
-      ></iframe>
-  </div>
+		<iframe
+			id="frame"
+			title="game"
+			class="absolute top-0 left-0 h-full w-full border-none"></iframe>
+	</div>
+
+	<script>
+		const search = document.getElementById("search_games");
+		const gmes = document.getElementById("gmes");
+		const cards = Array.from(gmes.querySelectorAll(".game-card"));
+
+		search.addEventListener("input", (event) => {
+			const searchQuery = event.target.value.toLowerCase();
+			cards.forEach((card) => {
+				const title = card.getAttribute("data-title").toLowerCase();
+				if (title.includes(searchQuery)) {
+					card.style.display = "inline-block";
+				} else {
+					card.style.display = "none";
+				}
+			});
+		});
+
+		window.opengme = async (file_name, title, frameGme) => {
+			const frame = document.getElementById("frame");
+			const container = document.getElementById("gme");
+			const titleEl = document.getElementById("title");
+
+			titleEl.textContent = title;
+			container.classList.remove("hidden");
+			document.body.style.overflow = "hidden";
+
+			if (frameGme == "true") {
+				// Directly load raw.githack URL
+				frame.src = `https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/thumbs${file_name}`;
+			} else {
+				delete frame.dataset.loaded;
+				frame.onload = async () => {
+					if (frame.dataset.loaded) return;
+					const doc = frame.contentDocument;
+
+					const html = await fetch(
+						`https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/thumbs${file_name}`,
+					).then((r) => r.text());
+
+					doc.open();
+					doc.write(html);
+					doc.close();
+
+					// Re-run scripts
+					doc.querySelectorAll("script").forEach((s) => {
+						const script = doc.createElement("script");
+						script.src = s.src || "";
+						if (!s.src) script.textContent = s.textContent;
+						s.replaceWith(script);
+					});
+
+					frame.dataset.loaded = true;
+				};
+
+				frame.src = "/asdf.html";
+			}
+		};
+
+		window.closegme = () => {
+			const gme = document.getElementById("gme");
+			const frame = document.getElementById("frame");
+
+			frame.src = "";
+			gme.classList.add("hidden");
+			document.body.style.overflow = "";
+		};
+
+		document.getElementById("back").addEventListener("click", () => {
+			closegme();
+		});
+	</script>
 </Layout>
