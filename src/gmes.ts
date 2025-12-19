@@ -4,13 +4,13 @@ const FILTER_OPTIMIZE_ON = import.meta.env.PUBLIC_FILTER_OPTIMIZE === "true";
 const gmes_text = FILTER_OPTIMIZE_ON ? "gᾰmes" : "games";
 
 (() => {
-	const target = document.querySelector("#gmeContainer");
+	const target = document.querySelector("#gmes");
 	const searchInput = document.getElementById("search_games");
 
 	searchInput.placeholder = `Search from ${gmesData.length} ${gmes_text}`;
 
 	if (!target) {
-		console.error("Target container #gmeContainer not found.");
+		console.error("Target container #gmes not found.");
 		return;
 	}
 
@@ -68,9 +68,9 @@ const gmes_text = FILTER_OPTIMIZE_ON ? "gᾰmes" : "games";
 	renderGmes(allGmes);
 
 	window.opengme = async (file_name, title, frameGme) => {
-		const frame = document.getElementById("gmePageFrame");
-		const container = document.getElementById("gmePageContainer");
-		const titleEl = document.getElementById("gmePageTitle");
+		const frame = document.getElementById("frame");
+		const container = document.getElementById("gme");
+		const titleEl = document.getElementById("title");
 
 		titleEl.textContent = title;
 		container.classList.remove("hidden");
@@ -109,15 +109,15 @@ const gmes_text = FILTER_OPTIMIZE_ON ? "gᾰmes" : "games";
 	};
 
 	window.closegme = () => {
-		const gmePageContainer = document.getElementById("gmePageContainer");
-		const gmePageFrame = document.getElementById("gmePageFrame");
+		const gme = document.getElementById("gme");
+		const frame = document.getElementById("frame");
 
-		gmePageFrame.src = "";
-		gmePageContainer.classList.add("hidden");
+		frame.src = "";
+		gme.classList.add("hidden");
 		document.body.style.overflow = "";
 	};
 
-	document.getElementById("backBtn").addEventListener("click", () => {
+	document.getElementById("back").addEventListener("click", () => {
 		closegme();
 	});
 })();

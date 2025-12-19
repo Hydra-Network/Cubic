@@ -21,16 +21,16 @@ import { Icon } from "astro-icon/components";
     </div>
   </div>
 
-  <section id="gmeContainer"></section>
-  <div id="gmePageContainer" class="bg-slate-800/90 fixed inset-0 z-[999] hidden">
+  <section id="gmes"></section>
+  <div id="gme" class="bg-slate-800/90 fixed inset-0 z-[999] hidden">
     <h2
-      id="gmePageTitle"
+      id="title"
       class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
     >
     </h2>
 
     <button
-      id="backBtn"
+      id="back"
       class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center rounded-lg border-0 px-4 py-2 transition"
     >
       <Icon name="lucide:x" class="size-5" />
@@ -38,8 +38,8 @@ import { Icon } from "astro-icon/components";
     </button>
 
     <iframe
-      id="gmePageFrame"
+      id="frame"
       class="absolute top-0 left-0 h-full w-full border-none"
-      allowfullscreen></iframe>
+      ></iframe>
   </div>
 </Layout>

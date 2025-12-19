@@ -30,6 +30,6 @@ button:active {
   stroke-width: 3;
 }
 
-#gmeContainer {
+#gmes {
   overflow-y: overlay; /* scrollable without taking space for scrollbar */
 }

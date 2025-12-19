@@ -20,9 +20,10 @@
 		"thumb": "thumbs/12-mini-battles.webp"
 	},
 	{
-		"file_name": "2048.html",
+		"file_name": "2048/index.html",
 		"title": "2048",
-		"thumb": "thumbs/2048.webp"
+		"thumb": "thumbs/2048.webp",
+		"frame": "true"
 	},
 	{
 		"file_name": "40-escape.html",
