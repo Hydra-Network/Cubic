@@ -79,7 +79,7 @@ const allGmes = [...gmesData].sort((a, b) =>
 
 			if (frameGme == "true") {
 				// Directly load raw.githack URL
-				frame.src = `https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/thumbs${file_name}`;
+				frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
 			} else {
 				delete frame.dataset.loaded;
 				frame.onload = async () => {
@@ -87,7 +87,7 @@ const allGmes = [...gmesData].sort((a, b) =>
 					const doc = frame.contentDocument;
 
 					const html = await fetch(
-						`https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/thumbs${file_name}`,
+						`https://cdn.jsdelivr.net/gh/hydra-network/asseting-bromine@main/${file_name}`,
 					).then((r) => r.text());
 
 					doc.open();
