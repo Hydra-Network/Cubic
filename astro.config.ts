@@ -1,9 +1,9 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig } from 'astro/config';
 
-import icon from "astro-icon";
+import icon from 'astro-icon';
 
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,10 +11,10 @@ export default defineConfig({
 
   server: {
     host: true,
-    port: 4321,
+    port: 4321
   },
 
   vite: {
-    plugins: [tailwindcss()],
-  },
+    plugins: [tailwindcss()]
+  }
 });
