@@ -2,24 +2,18 @@
 import { Icon } from "astro-icon/components";
 ---
 
-<aside class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0 flex flex-col fixed top-0 left-0 h-screen z-[1000]">
-  <div class="p-2 border-b border-slate-700">
-    <div
-      class="bg-slate-900 flex w-full items-center rounded-md px-3 shadow"
-    >
-      <Icon name="lucide:search" class="text-slate-400 size-4" />
-      <input
-        id="search_opened"
-        type="text"
-        placeholder="Search opened games..."
-        class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none text-sm"
-      />
-    </div>
-  </div>
-  
-  <div id="opened_games" class="flex-1 overflow-y-auto p-2 space-y-2">
-    <p class="text-slate-400 text-sm text-center py-4">No games opened</p>
-  </div>
+<aside
+	class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0 p-2 sticky"
+>
+	<div>
+		<Icon name="lucide:search" class="text-slate-400" />
+		<input
+			id="search"
+			type="text"
+			placeholder="Search opened games..."
+			class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
+		/>
+	</div>
 </aside>
 
 <script>
