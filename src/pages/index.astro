@@ -50,94 +50,134 @@ const allGmes = [...gmesData].sort((a, b) =>
   </div>
 
   <script>
-    const search = document.getElementById("search_games");
-    const gmes = document.getElementById("gmes");
-    const cards = Array.from(gmes.querySelectorAll(".game-card"));
+		const search = document.getElementById("search_games");
+		const gmes = document.getElementById("gmes");
+		const cards = Array.from(gmes.querySelectorAll(".game-card"));
 
-    search.addEventListener("input", (event) => {
-      const searchQuery = event.target.value.toLowerCase();
-      cards.forEach((card) => {
-        const title = card.getAttribute("data-title").toLowerCase();
-        if (title.includes(searchQuery)) {
-          card.style.display = "inline-block";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
+		search.addEventListener("input", (event) => {
+			const searchQuery = event.target.value.toLowerCase();
+			cards.forEach((card) => {
+				const title = card.getAttribute("data-title").toLowerCase();
+				if (title.includes(searchQuery)) {
+					card.style.display = "inline-block";
+				} else {
+					card.style.display = "none";
+				}
+			});
+		});
 
-    window.opengme = async (file_name, title, frameGme) => {
-      const frame = document.createElement("iframe");
-      const container = document.getElementById("gme");
-      const titleEl = document.getElementById("title");
+		// A function to show a game by file_name
+		function showGame(file_name, title) {
+			const container = document.getElementById("gme");
+			const titleEl = document.getElementById("title");
+			const frame = document.getElementById(`game-frame-${file_name}`);
 
-      titleEl.textContent = title;
-      container?.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
+			if (!frame) return;
 
-      const alt = title.split(" ")[0];
-      const gameUi = document.createElement("div");
-      gameUi.setAttribute("class", "py-3");
-      gameUi.setAttribute("id", `game-${alt}`);
-      gameUi.innerHTML = `
-<span>${title}</span>
-`;
-      document.querySelector("aside")?.append(gameUi);
+			titleEl.textContent = title;
+			// Hide other frames
+			document.querySelectorAll("#gme iframe").forEach(f => {
+				if (f.id !== `game-frame-${file_name}`) {
+					f.classList.add('hidden');
+				}
+			});
 
-      document.querySelector(`#game-${alt}`)?.addEventListener("click", () => {
-        container?.classList.remove("hidden");
-        frame?.classList.remove("hidden");
-        frame.focus();
-      });
+			frame.classList.remove("hidden");
+			container?.classList.remove("hidden");
+			document.body.style.overflow = "hidden";
+			frame.focus();
+		}
 
-      frame.setAttribute("title", "game");
-      frame.setAttribute("id", `game-${file_name}`);
+		window.opengme = async (file_name, title, frameGme) => {
+			// If game is already in sidebar, just show it
+			if (document.getElementById(`game-sidebar-${file_name}`)) {
+				showGame(file_name, title);
+				return;
+			}
+			
+			const container = document.getElementById("gme");
+			
+			// --- Create sidebar element with close button ---
+			const gameUi = document.createElement("div");
+			gameUi.className = "game-sidebar-item py-3 flex items-center justify-between cursor-pointer hover:bg-slate-700 rounded-md px-2";
+			gameUi.id = `game-sidebar-${file_name}`;
 
-      if (frameGme == "true") {
-        frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
-      } else {
-        delete frame?.dataset.loaded;
-        frame.onload = async () => {
-          if (frame?.dataset.loaded) return;
-          const doc = frame?.contentDocument;
+			const gameTitle = document.createElement('span');
+			gameTitle.textContent = title;
+			gameTitle.className = "truncate flex-grow";
 
-          const html = await fetch(
-            `https://cdn.jsdelivr.net/gh/hydra-network/asseting-bromine@main/${file_name}`,
-          ).then((r) => r.text());
+			const closeButton = document.createElement('button');
+			closeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
+			closeButton.className = 'p-1 text-slate-400 hover:text-white flex-shrink-0';
+			
+			closeButton.addEventListener('click', (e) => {
+				e.stopPropagation();
+				
+				const gameFrame = document.getElementById(`game-frame-${file_name}`);
+				const gameUiElement = document.getElementById(`game-sidebar-${file_name}`);
 
-          doc.open();
-          doc.write(html);
-          doc.close();
+				// If game to be closed is currently active, close the main view
+				if(gameFrame && !gameFrame.classList.contains('hidden')) {
+					window.closegme();
+				}
 
-          doc.querySelectorAll("script").forEach((s) => {
-            const script = doc.createElement("script");
-            script.src = s.src || "";
-            if (!s.src) script.textContent = s.textContent;
-            s.replaceWith(script);
-          });
+				gameFrame?.remove();
+				gameUiElement?.remove();
+			});
 
-          frame.dataset.loaded = true;
-        };
+			gameUi.append(gameTitle);
+			gameUi.append(closeButton);
+			document.querySelector("aside")?.append(gameUi);
 
-        frame.src = "/asdf.html";
-      }
-      container.append(frame);
-    };
+			gameUi.addEventListener("click", () => {
+				showGame(file_name, title);
+			});
 
-    window.closegme = (file_name) => {
-      const gme = document.getElementById("gme");
-      const frame = document.querySelector("iframe:not(.hidden)");
+			// --- Create iframe for the game ---
+			const frame = document.createElement("iframe");
+			frame.setAttribute("title", "game");
+			frame.setAttribute("id", `game-frame-${file_name}`);
+			// frame.className = "hidden"; // Initially hidden, showGame will unhide
 
-      // actuall actual close
-      // frame.src = "";
-      frame.classList.add("hidden");
-      gme.classList.add("hidden");
-      if (main) main.style.overflow = "";
-      document.body.style.overflow = "";
-    };
+			if (frameGme == "true") {
+				frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
+			} else {
+				frame.onload = async () => {
+					if (frame.dataset.loaded) return;
+					const doc = frame.contentDocument;
+					if (!doc) return;
+					const html = await fetch(`https://cdn.jsdelivr.net/gh/hydra-network/asseting-bromine@main/${file_name}`).then((r) => r.text());
+					doc.open();
+					doc.write(html);
+					doc.close();
+					doc.querySelectorAll("script").forEach((s) => {
+						const script = doc.createElement("script");
+						script.src = s.src || "";
+						if (!s.src) script.textContent = s.textContent;
+						s.replaceWith(script);
+					});
+					frame.dataset.loaded = true;
+				};
+				frame.src = "/asdf.html"; // Placeholder to trigger onload
+			}
+			container.append(frame);
 
-    document.getElementById("back").addEventListener("click", () => {
-      closegme();
-    });
-  </script>
-</Layout>
+			// Finally, show the newly opened game
+			showGame(file_name, title);
+		};
+
+		window.closegme = () => {
+			const gme = document.getElementById("gme");
+			const frame = document.querySelector("#gme iframe:not(.hidden)");
+
+			if (frame) {
+				frame.classList.add("hidden");
+			}
+			gme.classList.add("hidden");
+			document.body.style.overflow = "";
+		};
+
+		document.getElementById("back").addEventListener("click", () => {
+			window.closegme();
+		});
+	</script></Layout>
