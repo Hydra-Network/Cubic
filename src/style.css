@@ -28,11 +28,6 @@ button:active {
   stroke-width: 3;
 }
 
-/* sidebar item */
-aside div {
-  @apply bg-slate-900 flex w-full max-w-lg items-center rounded-md px-3 shadow mb-3;
-}
-
 /* game frames */
 #gme iframe {
   @apply absolute top-0 left-0 h-full w-full border-none;

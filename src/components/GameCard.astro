@@ -15,8 +15,11 @@ const thumb_url = thumb
 
 <div
   data-title={title}
-  onclick=`opengme('${file_name}', '${title}', '${frame}')`
-  class="game-card bg-slate-900 border border-slate-700 rounded-xl p-3 m-2 inline-block w-64 text-center shadow-sm transition-transform duration-200 hover:scale-105 cursor-pointer"
+  data-file={file_name}
+  data-frame={frame}
+  role="button"
+  tabindex="0"
+  class="game-card bg-slate-900 border border-slate-700 rounded-xl p-3 m-2 inline-block w-64 text-center shadow-sm transition-transform duration-200 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-500"
 >
   {
     thumb_url ? (
