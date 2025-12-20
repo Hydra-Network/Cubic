@@ -63,7 +63,7 @@ const imageURL =
     </script>
   </head>
 
-  <body class="bg-slate-900 text-gray-50 flex min-h-screen flex-col">
+  <body class="bg-slate-900 text-gray-50 flex min-h-screen flex-row">
     <a
       href="#main"
       class="bg-slate-800 hover:bg-slate-700 absolute top-4 left-4 z-50 -translate-y-16 transform rounded-md px-4 py-2 opacity-0 shadow-lg transition-all duration-300 ease-in-out focus:translate-y-0 focus:opacity-100"
@@ -73,7 +73,7 @@ const imageURL =
 
     <Sidebar />
 
-    <main id="main" class="flex flex-grow flex-col ml-64">
+    <main id="main" class="flex flex-grow flex-col">
       <slot />
     </main>
   </body>
