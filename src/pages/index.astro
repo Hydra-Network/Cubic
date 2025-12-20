@@ -58,11 +58,15 @@ const allGmes = [...gmesData].sort((a, b) => {
     <div
       class="bg-slate-800 flex w-full max-w-xl items-center rounded-md px-3 shadow"
     >
-      <Icon name="lucide:search" class="text-slate-400 size-5" />
+      <img
+        src="/logo.png"
+        alt="Cubic Logo"
+        class="h-8 w-auto mr-3"
+      />
       <input
         id="search_games"
         type="text"
-        class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
+        class="w-full flex-1 bg-transparent py-2 text-center -ml-11 focus:outline-none"
         placeholder={`Search from ${gmesData.length} games`}
       />
     </div>

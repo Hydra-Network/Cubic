@@ -19,24 +19,23 @@ const thumb_url = thumb
   data-frame={frame}
   role="button"
   tabindex="0"
-  class="game-card bg-slate-900 border border-slate-700 rounded-xl p-4 inline-block w-72 text-center shadow-sm transition-transform duration-200 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-500"
+  class="game-card inline-block w-72 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-500 transition-transform duration-200 hover:scale-105"
 >
-  {
-    thumb_url ? (
-      <img
-        src={thumb_url}
-        loading="eager"
-        decoding="async"
-        alt={title}
-        height="230"
-        width="230"
-        class="w-full h-48 object-cover rounded-lg mb-3"
-      />
-    ) : (
-      <div class="w-full h-48 rounded-lg bg-slate-800 mb-3 flex items-center justify-center">
-        <p class="text-slate-500">No Image</p>
-      </div>
-    )
-  }
-  <h3 class="mt-2 text-xl font-bold truncate">{title}</h3>
+  <div class="game-card-image bg-[#1a1f2e] h-48 flex items-center justify-center overflow-hidden">
+    {
+      thumb_url ? (
+        <img
+          src={thumb_url}
+          loading="eager"
+          decoding="async"
+          alt={title}
+          class="w-full h-full object-cover"
+        />
+      ) : null
+    }
+  </div>
+  <div class="game-card-info bg-[#2a2f3e] px-4 py-3">
+    <h3 class="text-white text-2xl font-bold mb-1">{title}</h3>
+    <p class="text-slate-400 text-sm">/{file_name}</p>
+  </div>
 </div>
