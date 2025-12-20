@@ -1,5 +1,115 @@
 [
   {
+    "file_name": "hollow-knight.html",
+    "title": "Hollow Knight",
+    "thumb": "thumbs/hollow-knight.webp"
+  },
+  {
+    "file_name": "celeste.html",
+    "title": "Celeste",
+    "thumb": "thumbs/celeste.webp"
+  },
+  {
+    "file_name": "doom.html",
+    "title": "Doom",
+    "thumb": "thumbs/doom.webp"
+  },
+  {
+    "file_name": "doom-64.html",
+    "title": "Doom 64",
+    "thumb": "thumbs/doom-64.webp"
+  },
+  {
+    "file_name": "castlevania.html",
+    "title": "Castlevania",
+    "thumb": "thumbs/castlevania.webp"
+  },
+  {
+    "file_name": "castlevania-aria-of-sorrow.html",
+    "title": "Castlevania Aria of Sorrow",
+    "thumb": "thumbs/castlevania-aria-of-sorrow.webp"
+  },
+  {
+    "file_name": "among-us.html",
+    "title": "Among Us",
+    "thumb": "thumbs/among-us.webp"
+  },
+  {
+    "file_name": "cookie-clicker.html",
+    "title": "Cookie Clicker",
+    "thumb": "thumbs/cookie-clicker.webp"
+  },
+  {
+    "file_name": "baldis-basics.html",
+    "title": "Baldis Basics",
+    "thumb": "thumbs/baldis-basics.webp"
+  },
+  {
+    "file_name": "buckshot-roulette.html",
+    "title": "Buckshot Roulette",
+    "thumb": "thumbs/buckshot-roulette.webp"
+  },
+  {
+    "file_name": "a-dark-room.html",
+    "title": "A Dark Room",
+    "thumb": "thumbs/a-dark-room.webp"
+  },
+  {
+    "file_name": "undertale.html",
+    "title": "Undertale",
+    "thumb": "thumbs/undertale.webp"
+  },
+  {
+    "file_name": "celeste-2.html",
+    "title": "Celeste 2",
+    "thumb": "thumbs/celeste-2.webp"
+  },
+  {
+    "file_name": "alien-hominid.html",
+    "title": "Alien Hominid",
+    "thumb": "thumbs/alien-hominid.webp"
+  },
+  {
+    "file_name": "chaos-faction-2.html",
+    "title": "Chaos Faction 2",
+    "thumb": "thumbs/chaos-faction-2.webp"
+  },
+  {
+    "file_name": "bloons-td-5.html",
+    "title": "Bloons TD 5",
+    "thumb": "thumbs/bloons-td-5.webp"
+  },
+  {
+    "file_name": "age-of-war.html",
+    "title": "Age of War",
+    "thumb": "thumbs/age-of-war.webp"
+  },
+  {
+    "file_name": "duck-life.html",
+    "title": "Duck Life",
+    "thumb": "thumbs/duck-life.webp"
+  },
+  {
+    "file_name": "burrito-bison.html",
+    "title": "Burrito Bison",
+    "thumb": "thumbs/burrito-bison.webp"
+  },
+  {
+    "file_name": "happy-wheels.html",
+    "title": "Happy Wheels",
+    "thumb": "thumbs/happy-wheels.webp"
+  },
+  {
+    "file_name": "cluster-rush.html",
+    "title": "Cluster Rush",
+    "thumb": "thumbs/cluster-rush.webp"
+  },
+  {
+    "file_name": "drive-mad.html",
+    "title": "Drive Mad",
+    "thumb": "thumbs/drive-mad.webp"
+  },
+  {
     "file_name": "1.html",
     "title": "1",
     "thumb": "thumbs/1.webp"
@@ -111,11 +221,6 @@
     "thumb": "thumbs/achillies-2.webp"
   },
   {
-    "file_name": "a-dark-room.html",
-    "title": "A Dark Room",
-    "thumb": "thumbs/a-dark-room.webp"
-  },
-  {
     "file_name": "advance-wars-2.html",
     "title": "Advance Wars 2",
     "thumb": "thumbs/advance-wars-2.webp"
@@ -139,11 +244,6 @@
     "file_name": "age-of-war-2.html",
     "title": "Age of War 2",
     "thumb": "thumbs/age-of-war-2.webp"
-  },
-  {
-    "file_name": "age-of-war.html",
-    "title": "Age of War",
-    "thumb": "thumbs/age-of-war.webp"
   },
   {
     "file_name": "ages-of-conflict.html",
@@ -174,11 +274,6 @@
     "file_name": "alien-hominid-gba.html",
     "title": "Alien Hominid GBA",
     "thumb": "thumbs/alien-hominid-gba.webp"
-  },
-  {
-    "file_name": "alien-hominid.html",
-    "title": "Alien Hominid",
-    "thumb": "thumbs/alien-hominid.webp"
   },
   {
     "file_name": "alien-sky-invasion.html",
@@ -244,11 +339,6 @@
     "file_name": "amigo-pancho.html",
     "title": "Amigo Pancho",
     "thumb": "thumbs/amigo-pancho.webp"
-  },
-  {
-    "file_name": "among-us.html",
-    "title": "Among Us",
-    "thumb": "thumbs/among-us.webp"
   },
   {
     "file_name": "amorphous.html",
@@ -429,11 +519,6 @@
     "file_name": "balatro.html",
     "title": "Balatro",
     "thumb": "thumbs/balatro.webp"
-  },
-  {
-    "file_name": "baldis-basics.html",
-    "title": "Baldis Basics",
-    "thumb": "thumbs/baldis-basics.webp"
   },
   {
     "file_name": "baldis-basics-remastered.html",
@@ -781,11 +866,6 @@
     "thumb": "thumbs/bloons-td-4.webp"
   },
   {
-    "file_name": "bloons-td-5.html",
-    "title": "Bloons TD 5",
-    "thumb": "thumbs/bloons-td-5.webp"
-  },
-  {
     "file_name": "bloxorz.html",
     "title": "Bloxorz",
     "thumb": "thumbs/bloxorz.webp"
@@ -957,11 +1037,6 @@
     "thumb": "thumbs/bubsy.webp"
   },
   {
-    "file_name": "buckshot-roulette.html",
-    "title": "Buckshot Roulette",
-    "thumb": "thumbs/buckshot-roulette.webp"
-  },
-  {
     "file_name": "bunny-land.html",
     "title": "Bunny Land",
     "thumb": "thumbs/bunny-land.webp"
@@ -975,11 +1050,6 @@
     "file_name": "burrito-bison-2.html",
     "title": "Burrito Bison 2",
     "thumb": "thumbs/burrito-bison-2.webp"
-  },
-  {
-    "file_name": "burrito-bison.html",
-    "title": "Burrito Bison",
-    "thumb": "thumbs/burrito-bison.webp"
   },
   {
     "file_name": "burrito-bison-launch-ali-bre.html",
@@ -1062,16 +1132,6 @@
     "thumb": "thumbs/castlevania-3.webp"
   },
   {
-    "file_name": "castlevania-aria-of-sorrow.html",
-    "title": "Castlevania Aria of Sorrow",
-    "thumb": "thumbs/castlevania-aria-of-sorrow.webp"
-  },
-  {
-    "file_name": "castlevania.html",
-    "title": "Castlevania",
-    "thumb": "thumbs/castlevania.webp"
-  },
-  {
     "file_name": "castlevania-nes.html",
     "title": "Castlevania NES",
     "thumb": "thumbs/castlevania-nes.webp"
@@ -1102,24 +1162,9 @@
     "thumb": "thumbs/caves-tory.webp"
   },
   {
-    "file_name": "celeste-2.html",
-    "title": "Celeste 2",
-    "thumb": "thumbs/celeste-2.webp"
-  },
-  {
-    "file_name": "celeste.html",
-    "title": "Celeste",
-    "thumb": "thumbs/celeste.webp"
-  },
-  {
     "file_name": "cellar-door.html",
     "title": "Cellar Door",
     "thumb": "thumbs/cellar-door.webp"
-  },
-  {
-    "file_name": "chaos-faction-2.html",
-    "title": "Chaos Faction 2",
-    "thumb": "thumbs/chaos-faction-2.webp"
   },
   {
     "file_name": "checkers.html",
@@ -1237,11 +1282,6 @@
     "thumb": "thumbs/cl-madness-ambulation.webp"
   },
   {
-    "file_name": "cluster-rush.html",
-    "title": "Cluster Rush",
-    "thumb": "thumbs/cluster-rush.webp"
-  },
-  {
     "file_name": "coal-llc-demo.html",
     "title": "Coal Llc Demo",
     "thumb": "thumbs/coal-llc-demo.webp"
@@ -1335,11 +1375,6 @@
     "file_name": "cookie-clicker-good.html",
     "title": "Cookie Clicker Good",
     "thumb": "thumbs/cookie-clicker-good.webp"
-  },
-  {
-    "file_name": "cookie-clicker.html",
-    "title": "Cookie Clicker",
-    "thumb": "thumbs/cookie-clicker.webp"
   },
   {
     "file_name": "cooking-mama-2.html",
@@ -1712,16 +1747,6 @@
     "thumb": "thumbs/doodle-jump.webp"
   },
   {
-    "file_name": "doom-64.html",
-    "title": "Doom 64",
-    "thumb": "thumbs/doom-64.webp"
-  },
-  {
-    "file_name": "doom.html",
-    "title": "Doom",
-    "thumb": "thumbs/doom.webp"
-  },
-  {
     "file_name": "douche-bag-life.html",
     "title": "Douche Bag Life",
     "thumb": "thumbs/douche-bag-life.webp"
@@ -1774,11 +1799,6 @@
     "thumb": "thumbs/drift-boss.webp"
   },
   {
-    "file_name": "drive-mad.html",
-    "title": "Drive Mad",
-    "thumb": "thumbs/drive-mad.webp"
-  },
-  {
     "file_name": "driven-wild.html",
     "title": "Driven Wild",
     "thumb": "thumbs/driven-wild.webp"
@@ -1822,11 +1842,6 @@
     "file_name": "duck-life-battle.html",
     "title": "Duck Life Battle",
     "thumb": "thumbs/duck-life-battle.webp"
-  },
-  {
-    "file_name": "duck-life.html",
-    "title": "Duck Life",
-    "thumb": "thumbs/duck-life.webp"
   },
   {
     "file_name": "duck-life-space.html",
@@ -2629,11 +2644,6 @@
     "thumb": "thumbs/happy-room.webp"
   },
   {
-    "file_name": "happy-wheels.html",
-    "title": "Happy Wheels",
-    "thumb": "thumbs/happy-wheels.webp"
-  },
-  {
     "file_name": "hardware-tycoon.html",
     "title": "Hardware Tycoon",
     "thumb": "thumbs/hardware-tycoon.webp"
@@ -2757,11 +2767,6 @@
     "file_name": "hole-io.html",
     "title": "Hole IO",
     "thumb": "thumbs/hole-io.webp"
-  },
-  {
-    "file_name": "hollow-knight.html",
-    "title": "Hollow Knight",
-    "thumb": "thumbs/hollow-knight.webp"
   },
   {
     "file_name": "house-of-hazards.html",
@@ -6070,11 +6075,6 @@
     "file_name": "underneath.html",
     "title": "Underneath",
     "thumb": "thumbs/underneath.webp"
-  },
-  {
-    "file_name": "undertale.html",
-    "title": "Undertale",
-    "thumb": "thumbs/undertale.webp"
   },
   {
     "file_name": "unfair-mario.html",

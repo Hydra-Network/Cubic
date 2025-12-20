@@ -4,9 +4,51 @@ import { Icon } from "astro-icon/components";
 import gmesData from "@/gmes.json";
 import GameCard from "@/components/GameCard.astro";
 
-const allGmes = [...gmesData].sort((a, b) =>
-  a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
-);
+const popularGames = [
+  "Hollow Knight",
+  "ULTRAKILL",
+  "Celeste",
+  "Katana ZERO",
+  "Dead Cells",
+  "Hyper Light Drifter",
+  "DOOM",
+  "Doom 64",
+  "Castlevania",
+  "Castlevania Aria of Sorrow",
+  "Super Meat Boy",
+  "Cuphead",
+  "Among Us",
+  "Cookie Clicker",
+  "Baldis Basics",
+  "Buckshot Roulette",
+  "A Dark Room",
+  "Binding of Isaac",
+  "Undertale",
+  "Deltarune",
+  "Celeste 2",
+  "Alien Hominid",
+  "Chaos Faction 2",
+  "Bloons TD 5",
+  "Age of War",
+  "Duck Life",
+  "Burrito Bison",
+  "Happy Wheels",
+  "Cluster Rush",
+  "Drive Mad",
+];
+
+const allGmes = [...gmesData].sort((a, b) => {
+  const aIsPopular = popularGames.includes(a.title);
+  const bIsPopular = popularGames.includes(b.title);
+  
+  if (aIsPopular && !bIsPopular) return -1;
+  if (!aIsPopular && bIsPopular) return 1;
+  if (aIsPopular && bIsPopular) {
+    return popularGames.indexOf(a.title) - popularGames.indexOf(b.title);
+  }
+  
+  return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+});
 ---
 
 <Layout>
@@ -26,13 +68,13 @@ const allGmes = [...gmesData].sort((a, b) =>
     </div>
   </div>
 
-  <section id="gmes" class="flex flex-wrap justify-center gap-2.5 p-2.5">
+  <section id="gmes" class="flex flex-wrap justify-center gap-6 p-6 max-w-[1400px] mx-auto">
     {allGmes.map((gme) => <GameCard {...gme} />)}
   </section>
 
   <div
     id="gme"
-    class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-72 z-[999] hidden"
+    class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-0 z-[999] hidden"
   >
     <h2
       id="title"
@@ -53,7 +95,6 @@ const allGmes = [...gmesData].sort((a, b) =>
     const search = document.getElementById("search_games");
     const gmes = document.getElementById("gmes");
     const cards = Array.from(gmes.querySelectorAll(".game-card"));
-    const openGames = new Map();
 
     search.addEventListener("input", (e) => {
       const q = e.target.value.toLowerCase();
@@ -81,106 +122,29 @@ const allGmes = [...gmesData].sort((a, b) =>
       if (fn && t) window.opengme(fn, t, card.dataset.frame);
     });
 
-    document.getElementById("sidebar_search").addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase();
-      document.querySelectorAll("#opened_games .sidebar-game-item").forEach((item) => {
-        const t = (item.dataset.title || "").toLowerCase();
-        item.style.display = t.includes(q) ? "flex" : "none";
-      });
-    });
-
-    function updateSidebar() {
-      const hint = document.getElementById("no_games_hint");
-      const btn = document.getElementById("close_all_games");
-      hint.style.display = openGames.size ? "none" : "block";
-      btn.disabled = !openGames.size;
-    }
-
     function hideFrames() {
-      document.getElementById("gme").querySelectorAll("iframe").forEach(f => f.classList.add("hidden"));
-    }
-
-    function showGame(key) {
-      const data = openGames.get(key);
-      if (!data || !data.frame) return;
-
-      hideFrames();
-      const container = document.getElementById("gme");
-      container.classList.remove("hidden");
-      data.frame.classList.remove("hidden");
-      document.getElementById("title").textContent = data.title;
-      document.body.style.overflow = "hidden";
-      data.frame.focus();
-
-      document.querySelectorAll(".sidebar-game-item").forEach((el) => {
-        el.classList.toggle("bg-slate-800", el.id === `sidebar-${key}`);
-        el.classList.toggle("bg-slate-900/50", el.id !== `sidebar-${key}`);
+      document.getElementById("gme").querySelectorAll("iframe").forEach(f => {
+        f.src = "about:blank";
+        f.remove();
       });
-    }
-
-    function addToSidebar(key, title) {
-      const list = document.getElementById("opened_games");
-      const item = document.createElement("div");
-      item.id = `sidebar-${key}`;
-      item.dataset.title = title;
-      item.className = "sidebar-game-item group flex items-center gap-2 bg-slate-900/50 hover:bg-slate-800 rounded-lg px-3 py-2 cursor-pointer transition-colors";
-
-      const span = document.createElement("span");
-      span.className = "flex-1 text-sm text-slate-300 truncate";
-      span.textContent = title;
-
-      const btn = document.createElement("button");
-      btn.className = "opacity-0 group-hover:opacity-100 p-1 hover:bg-slate-700 rounded transition-opacity text-slate-500 hover:text-slate-200";
-      btn.innerHTML = `<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
-      btn.onclick = (e) => { e.stopPropagation(); closeGame(key); };
-
-      item.onclick = () => showGame(key);
-      item.append(span, btn);
-      list.appendChild(item);
-    }
-
-    function closeGame(key) {
-      const data = openGames.get(key);
-      if (data && data.frame) {
-        data.frame.src = "about:blank";
-        data.frame.remove();
-      }
-      document.getElementById(`sidebar-${key}`)?.remove();
-      openGames.delete(key);
-      updateSidebar();
-
-      const container = document.getElementById("gme");
-      if (!container.querySelector("iframe")) {
-        if (openGames.size) {
-          showGame(openGames.keys().next().value);
-        } else {
-          container.classList.add("hidden");
-          document.body.style.overflow = "";
-        }
-      }
     }
 
     window.opengme = async (file_name, title, frameGme) => {
-      const key = file_name.replace(/[^a-zA-Z0-9]/g, "_");
-      if (openGames.has(key)) { showGame(key); return; }
-
       hideFrames();
       const container = document.getElementById("gme");
       const frame = document.createElement("iframe");
-      frame.id = `frame-${key}`;
       frame.title = "game";
-
-      openGames.set(key, { title, file_name, frameGme, frame });
-      addToSidebar(key, title);
-      updateSidebar();
 
       document.getElementById("title").textContent = title;
       container.classList.remove("hidden");
       document.body.style.overflow = "hidden";
 
+      let originalSrc;
       if (frameGme == "true") {
-        frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
+        originalSrc = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
+        frame.src = originalSrc;
       } else {
+        originalSrc = "/blank.html";
         frame.onload = async function() {
           if (this.dataset.loaded) return;
           const doc = this.contentDocument;
@@ -199,7 +163,7 @@ const allGmes = [...gmesData].sort((a, b) =>
           });
           this.dataset.loaded = "1";
         };
-        frame.src = "/blank.html";
+        frame.src = originalSrc;
       }
       container.append(frame);
     };
@@ -211,8 +175,5 @@ const allGmes = [...gmesData].sort((a, b) =>
     };
 
     document.getElementById("back").addEventListener("click", closegme);
-    document.getElementById("close_all_games").addEventListener("click", () => {
-      [...openGames.keys()].forEach(closeGame);
-    });
   </script>
 </Layout>

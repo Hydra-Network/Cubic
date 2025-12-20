@@ -1,7 +1,6 @@
 ---
 import { SEO } from "astro-seo";
 import "@/style.css";
-import Sidebar from "@/components/Sidebar.astro";
 
 export interface Props {
   title?: string;
@@ -71,9 +70,7 @@ const imageURL =
       Skip to main content
     </a>
 
-    <Sidebar />
-
-    <main id="main" class="flex flex-grow flex-col ml-72">
+    <main id="main" class="flex flex-grow flex-col">
       <slot />
     </main>
   </body>
