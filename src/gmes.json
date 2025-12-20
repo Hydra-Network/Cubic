@@ -35,7 +35,7 @@
 		"thumb": "thumbs/among-us.webp"
 	},
 	{
-		"file_name": "cookie-clicker-good.html",
+		"file_name": "cookie-clicker.html",
 		"title": "Cookie Clicker",
 		"thumb": "thumbs/cookie-clicker.webp"
 	},
@@ -1132,7 +1132,7 @@
 		"thumb": "thumbs/castle-wars-modern.webp"
 	},
 	{
-		"file_name": "cat-mario-good.html",
+		"file_name": "cat-mario.html",
 		"title": "Cat Mario",
 		"thumb": "thumbs/cat-mario.webp"
 	},
@@ -5965,11 +5965,6 @@
 		"file_name": "traffic-jam-3d.html",
 		"title": "Traffic Jam 3D",
 		"thumb": "thumbs/traffic-jam-3d.webp"
-	},
-	{
-		"file_name": "trapt-he-cat.html",
-		"title": "Trapt He Cat",
-		"thumb": "thumbs/trapt-he-cat.webp"
 	},
 	{
 		"file_name": "triple-play-2-000.html",

@@ -55,10 +55,8 @@ const allGmes = [...gmesData].sort((a, b) => {
 	<div
 		class="sticky top-0 z-20 flex justify-center py-3 shadow-md backdrop-blur"
 	>
-		<div
-			class="bg-slate-800 flex w-full max-w-xl items-center rounded-md px-3 shadow"
-		>
-			<img src="/logo.png" alt="Cubic Logo" class="h-8 w-auto mr-3" />
+		<div class="bg-slate-800 flex w-full max-w-xl items-center px-3 shadow">
+			<img src="/logo.webp" alt="Cubic Logo" class="h-8 w-auto mr-3" />
 			<input
 				id="search_games"
 				type="text"
@@ -87,7 +85,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 
 		<button
 			id="back"
-			class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center rounded-lg border-0 px-4 py-2 transition"
+			class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center border-0 px-4 py-2 transition"
 		>
 			<Icon name="lucide:x" class="size-5" />
 			Close
@@ -174,7 +172,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 			item.id = `sidebar-${key}`;
 			item.dataset.title = title;
 			item.className =
-				"sidebar-game-item group flex items-center gap-2 bg-slate-900/50 hover:bg-slate-800 rounded-lg px-3 py-2 cursor-pointer transition-colors";
+				"sidebar-game-item group flex items-center gap-2 bg-slate-900/50 hover:bg-slate-800 px-3 py-2 cursor-pointer transition-colors";
 
 			const span = document.createElement("span");
 			span.className = "flex-1 text-sm text-slate-300 truncate";
@@ -182,7 +180,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 
 			const btn = document.createElement("button");
 			btn.className =
-				"opacity-0 group-hover:opacity-100 p-1 hover:bg-slate-700 rounded transition-opacity text-slate-500 hover:text-slate-200";
+				"opacity-0 group-hover:opacity-100 p-1 hover:bg-slate-700 transition-opacity text-slate-500 hover:text-slate-200";
 			btn.innerHTML = `<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
 			btn.onclick = (e) => {
 				e.stopPropagation();
