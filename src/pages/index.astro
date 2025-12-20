@@ -30,7 +30,7 @@ const allGmes = [...gmesData].sort((a, b) =>
 		{allGmes.map((gme) => <GameCard {...gme} />)}
 	</section>
 
-	<div id="gme" class="bg-slate-800/90 fixed inset-0 z-[999] hidden">
+	<div id="gme" class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-64 z-[999] hidden">
 		<h2
 			id="title"
 			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
@@ -106,7 +106,6 @@ const allGmes = [...gmesData].sort((a, b) =>
 					doc.write(html);
 					doc.close();
 
-					// Re-run scripts
 					doc.querySelectorAll("script").forEach((s) => {
 						const script = doc.createElement("script");
 						script.src = s.src || "";
@@ -130,6 +129,7 @@ const allGmes = [...gmesData].sort((a, b) =>
 			// frame.src = "";
 			frame.classList.add("hidden");
 			gme.classList.add("hidden");
+			if (main) main.style.overflow = "";
 			document.body.style.overflow = "";
 		};
 

@@ -39,3 +39,16 @@ aside div {
 #gme iframe {
 	@apply absolute top-0 left-0 h-full w-full border-none;
 }
+
+#opened_games button {
+  transform: none !important;
+  transition: color 0.2s ease-in-out !important;
+}
+
+#opened_games button:hover {
+  transform: none !important;
+}
+
+#opened_games button:active {
+  transform: none !important;
+}

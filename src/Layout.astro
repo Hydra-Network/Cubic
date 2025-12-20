@@ -71,12 +71,10 @@ const imageURL =
 			Skip to main content
 		</a>
 
-		<div class="flex flex-grow">
-			<Sidebar />
+		<Sidebar />
 
-			<main id="main" class="flex flex-grow flex-col">
-				<slot />
-			</main>
-		</div>
+		<main id="main" class="flex flex-grow flex-col ml-64">
+			<slot />
+		</main>
 	</body>
 </html>

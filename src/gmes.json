@@ -286,11 +286,6 @@
 		"thumb": "thumbs/another-world.webp"
 	},
 	{
-		"file_name": "apo-tris.html",
-		"title": "Apo Tris",
-		"thumb": "thumbs/apo-tris.webp"
-	},
-	{
 		"file_name": "apple-shooter.html",
 		"title": "Apple Shooter",
 		"thumb": "thumbs/apple-shooter.webp"
@@ -334,11 +329,6 @@
 		"file_name": "a-small-world-cup.html",
 		"title": "A Small World Cup",
 		"thumb": "thumbs/a-small-world-cup.webp"
-	},
-	{
-		"file_name": "assesment-examination-que.html",
-		"title": "Assesment Examination Que",
-		"thumb": "thumbs/assesment-examination-que.webp"
 	},
 	{
 		"file_name": "asteroids.html",
