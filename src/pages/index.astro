@@ -44,11 +44,6 @@ const allGmes = [...gmesData].sort((a, b) =>
 			<Icon name="lucide:x" class="size-5" />
 			Close
 		</button>
-
-		<iframe
-			id="frame"
-			title="game"
-			class="absolute top-0 left-0 h-full w-full border-none"></iframe>
 	</div>
 
 	<script>
@@ -69,22 +64,39 @@ const allGmes = [...gmesData].sort((a, b) =>
 		});
 
 		window.opengme = async (file_name, title, frameGme) => {
-			const frame = document.getElementById("frame");
+			const frame = document.createElement("iframe");
 			const container = document.getElementById("gme");
 			const titleEl = document.getElementById("title");
 
 			titleEl.textContent = title;
-			container.classList.remove("hidden");
+			container?.classList.remove("hidden");
 			document.body.style.overflow = "hidden";
 
+			const alt = title.split(" ")[0];
+			const gameUi = document.createElement("div");
+			gameUi.setAttribute("class", "py-3");
+			gameUi.setAttribute("id", `game-${alt}`);
+			gameUi.innerHTML = `
+<span>${title}</span>
+`;
+			document.querySelector("aside")?.append(gameUi);
+
+			document.querySelector(`#game-${alt}`)?.addEventListener("click", () => {
+				container?.classList.remove("hidden");
+				frame?.classList.remove("hidden");
+				frame.focus();
+			});
+
+			frame.setAttribute("title", "game");
+			frame.setAttribute("id", `game-${file_name}`);
+
 			if (frameGme == "true") {
-				// Directly load raw.githack URL
 				frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
 			} else {
-				delete frame.dataset.loaded;
+				delete frame?.dataset.loaded;
 				frame.onload = async () => {
-					if (frame.dataset.loaded) return;
-					const doc = frame.contentDocument;
+					if (frame?.dataset.loaded) return;
+					const doc = frame?.contentDocument;
 
 					const html = await fetch(
 						`https://cdn.jsdelivr.net/gh/hydra-network/asseting-bromine@main/${file_name}`,
@@ -107,13 +119,15 @@ const allGmes = [...gmesData].sort((a, b) =>
 
 				frame.src = "/asdf.html";
 			}
+			container.append(frame);
 		};
 
-		window.closegme = () => {
+		window.closegme = (file_name) => {
 			const gme = document.getElementById("gme");
-			const frame = document.getElementById("frame");
+			const frame = document.querySelector("iframe:not(.hidden)");
 
-			frame.src = "";
+			// frame.src = "";
+			frame.classList.add("hidden");
 			gme.classList.add("hidden");
 			document.body.style.overflow = "";
 		};
