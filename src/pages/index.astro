@@ -5,136 +5,139 @@ import gmesData from "@/gmes.json";
 import GameCard from "@/components/GameCard.astro";
 
 const allGmes = [...gmesData].sort((a, b) =>
-	a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
+  a.title.localeCompare(b.title, undefined, { sensitivity: "base" }),
 );
 ---
 
 <Layout>
-	<div
-		class="sticky top-0 z-50 flex justify-center py-3 shadow-md backdrop-blur"
-	>
-		<div
-			class="bg-slate-800 flex w-full max-w-xl items-center rounded-md px-3 shadow"
-		>
-			<Icon name="lucide:search" class="text-slate-400 size-5" />
-			<input
-				id="search_games"
-				type="text"
-				class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
-				placeholder={`Search from ${gmesData.length} games`}
-			/>
-		</div>
-	</div>
+  <div
+    class="sticky top-0 z-50 flex justify-center py-3 shadow-md backdrop-blur"
+  >
+    <div
+      class="bg-slate-800 flex w-full max-w-xl items-center rounded-md px-3 shadow"
+    >
+      <Icon name="lucide:search" class="text-slate-400 size-5" />
+      <input
+        id="search_games"
+        type="text"
+        class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
+        placeholder={`Search from ${gmesData.length} games`}
+      />
+    </div>
+  </div>
 
-	<section id="gmes" class="flex flex-wrap justify-center gap-2.5 p-2.5">
-		{allGmes.map((gme) => <GameCard {...gme} />)}
-	</section>
+  <section id="gmes" class="flex flex-wrap justify-center gap-2.5 p-2.5">
+    {allGmes.map((gme) => <GameCard {...gme} />)}
+  </section>
 
-	<div id="gme" class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-64 z-[999] hidden">
-		<h2
-			id="title"
-			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
-		>
-		</h2>
+  <div
+    id="gme"
+    class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-64 z-[999] hidden"
+  >
+    <h2
+      id="title"
+      class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
+    >
+    </h2>
 
-		<button
-			id="back"
-			class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center rounded-lg border-0 px-4 py-2 transition"
-		>
-			<Icon name="lucide:x" class="size-5" />
-			Close
-		</button>
-	</div>
+    <button
+      id="back"
+      class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center rounded-lg border-0 px-4 py-2 transition"
+    >
+      <Icon name="lucide:x" class="size-5" />
+      Close
+    </button>
+  </div>
 
-	<script>
-		const search = document.getElementById("search_games");
-		const gmes = document.getElementById("gmes");
-		const cards = Array.from(gmes.querySelectorAll(".game-card"));
+  <script>
+    const search = document.getElementById("search_games");
+    const gmes = document.getElementById("gmes");
+    const cards = Array.from(gmes.querySelectorAll(".game-card"));
 
-		search.addEventListener("input", (event) => {
-			const searchQuery = event.target.value.toLowerCase();
-			cards.forEach((card) => {
-				const title = card.getAttribute("data-title").toLowerCase();
-				if (title.includes(searchQuery)) {
-					card.style.display = "inline-block";
-				} else {
-					card.style.display = "none";
-				}
-			});
-		});
+    search.addEventListener("input", (event) => {
+      const searchQuery = event.target.value.toLowerCase();
+      cards.forEach((card) => {
+        const title = card.getAttribute("data-title").toLowerCase();
+        if (title.includes(searchQuery)) {
+          card.style.display = "inline-block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
 
-		window.opengme = async (file_name, title, frameGme) => {
-			const frame = document.createElement("iframe");
-			const container = document.getElementById("gme");
-			const titleEl = document.getElementById("title");
+    window.opengme = async (file_name, title, frameGme) => {
+      const frame = document.createElement("iframe");
+      const container = document.getElementById("gme");
+      const titleEl = document.getElementById("title");
 
-			titleEl.textContent = title;
-			container?.classList.remove("hidden");
-			document.body.style.overflow = "hidden";
+      titleEl.textContent = title;
+      container?.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
 
-			const alt = title.split(" ")[0];
-			const gameUi = document.createElement("div");
-			gameUi.setAttribute("class", "py-3");
-			gameUi.setAttribute("id", `game-${alt}`);
-			gameUi.innerHTML = `
+      const alt = title.split(" ")[0];
+      const gameUi = document.createElement("div");
+      gameUi.setAttribute("class", "py-3");
+      gameUi.setAttribute("id", `game-${alt}`);
+      gameUi.innerHTML = `
 <span>${title}</span>
 `;
-			document.querySelector("aside")?.append(gameUi);
+      document.querySelector("aside")?.append(gameUi);
 
-			document.querySelector(`#game-${alt}`)?.addEventListener("click", () => {
-				container?.classList.remove("hidden");
-				frame?.classList.remove("hidden");
-				frame.focus();
-			});
+      document.querySelector(`#game-${alt}`)?.addEventListener("click", () => {
+        container?.classList.remove("hidden");
+        frame?.classList.remove("hidden");
+        frame.focus();
+      });
 
-			frame.setAttribute("title", "game");
-			frame.setAttribute("id", `game-${file_name}`);
+      frame.setAttribute("title", "game");
+      frame.setAttribute("id", `game-${file_name}`);
 
-			if (frameGme == "true") {
-				frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
-			} else {
-				delete frame?.dataset.loaded;
-				frame.onload = async () => {
-					if (frame?.dataset.loaded) return;
-					const doc = frame?.contentDocument;
+      if (frameGme == "true") {
+        frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
+      } else {
+        delete frame?.dataset.loaded;
+        frame.onload = async () => {
+          if (frame?.dataset.loaded) return;
+          const doc = frame?.contentDocument;
 
-					const html = await fetch(
-						`https://cdn.jsdelivr.net/gh/hydra-network/asseting-bromine@main/${file_name}`,
-					).then((r) => r.text());
+          const html = await fetch(
+            `https://cdn.jsdelivr.net/gh/hydra-network/asseting-bromine@main/${file_name}`,
+          ).then((r) => r.text());
 
-					doc.open();
-					doc.write(html);
-					doc.close();
+          doc.open();
+          doc.write(html);
+          doc.close();
 
-					doc.querySelectorAll("script").forEach((s) => {
-						const script = doc.createElement("script");
-						script.src = s.src || "";
-						if (!s.src) script.textContent = s.textContent;
-						s.replaceWith(script);
-					});
+          doc.querySelectorAll("script").forEach((s) => {
+            const script = doc.createElement("script");
+            script.src = s.src || "";
+            if (!s.src) script.textContent = s.textContent;
+            s.replaceWith(script);
+          });
 
-					frame.dataset.loaded = true;
-				};
+          frame.dataset.loaded = true;
+        };
 
-				frame.src = "/asdf.html";
-			}
-			container.append(frame);
-		};
+        frame.src = "/asdf.html";
+      }
+      container.append(frame);
+    };
 
-		window.closegme = (file_name) => {
-			const gme = document.getElementById("gme");
-			const frame = document.querySelector("iframe:not(.hidden)");
+    window.closegme = (file_name) => {
+      const gme = document.getElementById("gme");
+      const frame = document.querySelector("iframe:not(.hidden)");
 
-            // actuall actual close
-			// frame.src = "";
-			frame.classList.add("hidden");
-			gme.classList.add("hidden");
-			if (main) main.style.overflow = "";
-			document.body.style.overflow = "";
-		};
+      // actuall actual close
+      // frame.src = "";
+      frame.classList.add("hidden");
+      gme.classList.add("hidden");
+      if (main) main.style.overflow = "";
+      document.body.style.overflow = "";
+    };
 
-		document.getElementById("back").addEventListener("click", () => {
-			closegme();
-		});
-	</script>
+    document.getElementById("back").addEventListener("click", () => {
+      closegme();
+    });
+  </script>
 </Layout>

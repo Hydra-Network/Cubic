@@ -9,7 +9,7 @@ export interface Props {
 const { file_name, title, thumb, frame } = Astro.props;
 
 const thumb_url = thumb
-	? `https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/${thumb}`
+  ? `https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/${thumb}`
   : null;
 ---
 
@@ -20,13 +20,13 @@ const thumb_url = thumb
 >
   {
     thumb_url ? (
-		<img
-		    src={thumb_url}
-		    loading="eager"
+      <img
+        src={thumb_url}
+        loading="eager"
         decoding="async"
-		    alt={title}
-		    height="230"
-		    width="230"
+        alt={title}
+        height="230"
+        width="230"
         class="w-full h-40 object-cover rounded-lg mb-2"
       />
     ) : (

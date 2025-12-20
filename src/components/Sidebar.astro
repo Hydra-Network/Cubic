@@ -3,17 +3,17 @@ import { Icon } from "astro-icon/components";
 ---
 
 <aside
-	class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0 p-2 sticky"
+  class="w-64 bg-slate-800 border-r border-slate-700 flex-shrink-0 p-2 sticky"
 >
-	<div>
-		<Icon name="lucide:search" class="text-slate-400" />
-		<input
-			id="search"
-			type="text"
-			placeholder="Search opened games..."
-			class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
-		/>
-	</div>
+  <div>
+    <Icon name="lucide:search" class="text-slate-400" />
+    <input
+      id="search"
+      type="text"
+      placeholder="Search opened games..."
+      class="w-full flex-1 bg-transparent py-2 pl-3 focus:outline-none"
+    />
+  </div>
 </aside>
 
 <script>
@@ -23,35 +23,38 @@ import { Icon } from "astro-icon/components";
   let currentGameId = null;
 
   function escapeHtml(text) {
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   }
 
   function renderOpenedGames() {
     const searchQuery = searchInput.value.toLowerCase();
-    const filtered = openedGames.filter(game => 
-      game.title.toLowerCase().includes(searchQuery)
+    const filtered = openedGames.filter((game) =>
+      game.title.toLowerCase().includes(searchQuery),
     );
 
     if (filtered.length === 0 && openedGames.length === 0) {
-      openedGamesContainer.innerHTML = '<p class="text-slate-400 text-sm text-center py-4">No games opened</p>';
+      openedGamesContainer.innerHTML =
+        '<p class="text-slate-400 text-sm text-center py-4">No games opened</p>';
       return;
     }
 
     if (filtered.length === 0) {
-      openedGamesContainer.innerHTML = '<p class="text-slate-400 text-sm text-center py-4">no games found</p>';
+      openedGamesContainer.innerHTML =
+        '<p class="text-slate-400 text-sm text-center py-4">no games found</p>';
       return;
     }
 
-    openedGamesContainer.innerHTML = filtered.map(game => {
-      const isActive = currentGameId === game.id;
-      const escapedTitle = escapeHtml(game.title);
-      const escapedId = escapeHtml(game.id);
-      return `
+    openedGamesContainer.innerHTML = filtered
+      .map((game) => {
+        const isActive = currentGameId === game.id;
+        const escapedTitle = escapeHtml(game.title);
+        const escapedId = escapeHtml(game.id);
+        return `
         <div
           data-game-id="${escapedId}"
-          class="opened-game-item bg-slate-900 border border-slate-700 rounded-md p-2 cursor-pointer transition-colors hover:bg-slate-700 ${isActive ? 'ring-2 ring-blue-500' : ''}"
+          class="opened-game-item bg-slate-900 border border-slate-700 rounded-md p-2 cursor-pointer transition-colors hover:bg-slate-700 ${isActive ? "ring-2 ring-blue-500" : ""}"
           onclick="switchToGame('${escapedId}')"
         >
           <h4 class="text-sm font-medium truncate mb-1">${escapedTitle}</h4>
@@ -64,14 +67,17 @@ import { Icon } from "astro-icon/components";
           </button>
         </div>
       `;
-    }).join('');
+      })
+      .join("");
   }
 
   window.addOpenedGame = (file_name, title, frame) => {
     const gameId = `${file_name}-${Date.now()}`;
     const game = { id: gameId, file_name, title, frame };
-    
-    const existingIndex = openedGames.findIndex(g => g.file_name === file_name && g.title === title);
+
+    const existingIndex = openedGames.findIndex(
+      (g) => g.file_name === file_name && g.title === title,
+    );
     if (existingIndex !== -1) {
       currentGameId = openedGames[existingIndex].id;
       renderOpenedGames();
@@ -85,12 +91,12 @@ import { Icon } from "astro-icon/components";
   };
 
   window.switchToGame = (gameId) => {
-    const game = openedGames.find(g => g.id === gameId);
+    const game = openedGames.find((g) => g.id === gameId);
     if (!game) return;
 
     currentGameId = gameId;
     renderOpenedGames();
-    
+
     if (window.opengmeWithoutAdd) {
       window.opengmeWithoutAdd(game.file_name, game.title, game.frame);
     } else if (window.opengme) {
@@ -99,11 +105,11 @@ import { Icon } from "astro-icon/components";
   };
 
   window.removeOpenedGame = (gameId) => {
-    const index = openedGames.findIndex(g => g.id === gameId);
+    const index = openedGames.findIndex((g) => g.id === gameId);
     if (index === -1) return;
 
     openedGames.splice(index, 1);
-    
+
     if (currentGameId === gameId) {
       if (openedGames.length > 0) {
         currentGameId = openedGames[openedGames.length - 1].id;
@@ -115,7 +121,7 @@ import { Icon } from "astro-icon/components";
         }
       }
     }
-    
+
     renderOpenedGames();
   };
 
