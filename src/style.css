@@ -33,3 +33,16 @@ button:active {
 #gmes {
   overflow-y: overlay; /* scrollable without taking space for scrollbar */
 }
+
+#opened_games button {
+  transform: none !important;
+  transition: color 0.2s ease-in-out !important;
+}
+
+#opened_games button:hover {
+  transform: none !important;
+}
+
+#opened_games button:active {
+  transform: none !important;
+}

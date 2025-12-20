@@ -30,7 +30,7 @@ const allGmes = [...gmesData].sort((a, b) =>
 		{allGmes.map((gme) => <GameCard {...gme} />)}
 	</section>
 
-	<div id="gme" class="bg-slate-800/90 fixed inset-0 z-[999] hidden">
+	<div id="gme" class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-64 z-[999] hidden">
 		<h2
 			id="title"
 			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
@@ -48,7 +48,8 @@ const allGmes = [...gmesData].sort((a, b) =>
 		<iframe
 			id="frame"
 			title="game"
-			class="absolute top-0 left-0 h-full w-full border-none"></iframe>
+			class="absolute top-0 left-0 h-full w-full border-none"
+			style="width: 100%; height: 100%;"></iframe>
 	</div>
 
 	<script>
@@ -68,17 +69,10 @@ const allGmes = [...gmesData].sort((a, b) =>
 			});
 		});
 
-		window.opengme = async (file_name, title, frameGme) => {
+		const loadGameFrame = (file_name, frameGme) => {
 			const frame = document.getElementById("frame");
-			const container = document.getElementById("gme");
-			const titleEl = document.getElementById("title");
-
-			titleEl.textContent = title;
-			container.classList.remove("hidden");
-			document.body.style.overflow = "hidden";
-
+			
 			if (frameGme == "true") {
-				// Directly load raw.githack URL
 				frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
 			} else {
 				delete frame.dataset.loaded;
@@ -94,7 +88,6 @@ const allGmes = [...gmesData].sort((a, b) =>
 					doc.write(html);
 					doc.close();
 
-					// Re-run scripts
 					doc.querySelectorAll("script").forEach((s) => {
 						const script = doc.createElement("script");
 						script.src = s.src || "";
@@ -109,12 +102,46 @@ const allGmes = [...gmesData].sort((a, b) =>
 			}
 		};
 
+		window.opengmeWithoutAdd = async (file_name, title, frameGme) => {
+			const frame = document.getElementById("frame");
+			const container = document.getElementById("gme");
+			const titleEl = document.getElementById("title");
+			const main = document.getElementById("main");
+
+			titleEl.textContent = title;
+			container.classList.remove("hidden");
+			if (main) main.style.overflow = "hidden";
+			document.body.style.overflow = "hidden";
+
+			loadGameFrame(file_name, frameGme);
+		};
+
+		window.opengme = async (file_name, title, frameGme) => {
+			const frame = document.getElementById("frame");
+			const container = document.getElementById("gme");
+			const titleEl = document.getElementById("title");
+			const main = document.getElementById("main");
+
+			titleEl.textContent = title;
+			container.classList.remove("hidden");
+			if (main) main.style.overflow = "hidden";
+			document.body.style.overflow = "hidden";
+
+			if (window.addOpenedGame) {
+				window.addOpenedGame(file_name, title, frameGme);
+			}
+
+			loadGameFrame(file_name, frameGme);
+		};
+
 		window.closegme = () => {
 			const gme = document.getElementById("gme");
 			const frame = document.getElementById("frame");
+			const main = document.getElementById("main");
 
 			frame.src = "";
 			gme.classList.add("hidden");
+			if (main) main.style.overflow = "";
 			document.body.style.overflow = "";
 		};
 
