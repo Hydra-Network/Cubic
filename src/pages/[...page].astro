@@ -1,58 +1,65 @@
 ---
 import Layout from "@/Layout.astro";
-import { Icon } from "astro-icon/components";
-import gmesData from "@/gmes.json";
+import { ArrowLeft, ArrowRight, X } from "@lucide/astro";
+import gamesData from "@/games.json";
 import GameCard from "@/components/GameCard.astro";
+import type { GetStaticPaths } from "astro";
 
-const popularGames = [
-	"Hollow Knight",
-	"ULTRAKILL",
-	"Celeste",
-	"Katana ZERO",
-	"Dead Cells",
-	"Hyper Light Drifter",
-	"DOOM",
-	"Doom 64",
-	"Castlevania",
-	"Castlevania Aria of Sorrow",
-	"Super Meat Boy",
-	"Cuphead",
-	"Among Us",
-	"Cookie Clicker",
-	"Baldis Basics",
-	"Buckshot Roulette",
-	"A Dark Room",
-	"Binding of Isaac",
-	"Undertale",
-	"Deltarune",
-	"Celeste 2",
-	"Alien Hominid",
-	"Chaos Faction 2",
-	"Bloons TD 5",
-	"Age of War",
-	"Duck Life",
-	"Burrito Bison",
-	"Happy Wheels",
-	"Cluster Rush",
-	"Drive Mad",
-];
+export const getStaticPaths = (({ paginate }) => {
+	const popularGames = [
+		"Hollow Knight",
+		"ULTRAKILL",
+		"Celeste",
+		"Katana ZERO",
+		"Dead Cells",
+		"Hyper Light Drifter",
+		"DOOM",
+		"Doom 64",
+		"Castlevania",
+		"Castlevania Aria of Sorrow",
+		"Super Meat Boy",
+		"Cuphead",
+		"Among Us",
+		"Cookie Clicker",
+		"Baldis Basics",
+		"Buckshot Roulette",
+		"A Dark Room",
+		"Binding of Isaac",
+		"Undertale",
+		"Deltarune",
+		"Celeste 2",
+		"Alien Hominid",
+		"Chaos Faction 2",
+		"Bloons TD 5",
+		"Age of War",
+		"Duck Life",
+		"Burrito Bison",
+		"Happy Wheels",
+		"Cluster Rush",
+		"Drive Mad",
+	];
 
-const allGmes = [...gmesData].sort((a, b) => {
-	const aIsPopular = popularGames.includes(a.title);
-	const bIsPopular = popularGames.includes(b.title);
+	const allGames = [...gamesData].sort((a, b) => {
+		const aIsPopular = popularGames.includes(a.title);
+		const bIsPopular = popularGames.includes(b.title);
 
-	if (aIsPopular && !bIsPopular) return -1;
-	if (!aIsPopular && bIsPopular) return 1;
-	if (aIsPopular && bIsPopular) {
-		return popularGames.indexOf(a.title) - popularGames.indexOf(b.title);
-	}
+		if (aIsPopular && !bIsPopular) return -1;
+		if (!aIsPopular && bIsPopular) return 1;
+		if (aIsPopular && bIsPopular) {
+			return popularGames.indexOf(a.title) - popularGames.indexOf(b.title);
+		}
+		return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+	});
 
-	return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
-});
+	return paginate(allGames, { pageSize: 20 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
 ---
 
 <Layout>
-	<div
+	<!-- navbar -->
+	<nav
 		class="sticky top-0 z-20 flex justify-center py-3 shadow-md backdrop-blur"
 	>
 		<div class="bg-slate-800 flex w-full max-w-xl items-center px-3 shadow">
@@ -61,20 +68,56 @@ const allGmes = [...gmesData].sort((a, b) => {
 				id="search_games"
 				type="text"
 				class="w-full flex-1 bg-transparent py-2 text-center -ml-11 focus:outline-none"
-				placeholder={`Search from ${gmesData.length} games`}
+				placeholder={`Search from ${gamesData.length} games`}
 			/>
 		</div>
-	</div>
+	</nav>
 
+	<!-- games -->
 	<section
-		id="gmes"
+		id="games"
 		class="flex flex-wrap justify-center gap-6 p-6 max-w-[1400px] mx-auto"
 	>
-		{allGmes.map((gme) => <GameCard {...gme} />)}
+		{page.data.map((game) => <GameCard {...game} />)}
 	</section>
 
+	<!-- navigation -->
+	<div class="flex justify-center items-center gap-6 py-10">
+		{
+			page.url.prev ? (
+				<a
+					href={page.url.prev}
+					class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded text-white transition flex items-center gap-2"
+				>
+					<ArrowLeft />
+					Previous
+				</a>
+			) : (
+				<div class="w-[100px]" />
+			)
+		}
+
+		<span class="text-slate-400"
+			>Page {page.currentPage} of {page.lastPage}</span
+		>
+
+		{
+			page.url.next ? (
+				<a
+					href={page.url.next}
+					class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded text-white transition flex items-center gap-2"
+				>
+					Next <ArrowRight />
+				</a>
+			) : (
+				<div class="w-[100px]" />
+			)
+		}
+	</div>
+
+	<!-- play -->
 	<div
-		id="gme"
+		id="game"
 		class="bg-slate-800/90 fixed top-0 right-0 bottom-0 left-0 z-[999] hidden"
 	>
 		<h2
@@ -87,15 +130,15 @@ const allGmes = [...gmesData].sort((a, b) => {
 			id="back"
 			class="bg-slate-700/70 hover:bg-slate-800/70 absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center border-0 px-4 py-2 transition"
 		>
-			<Icon name="lucide:x" class="size-5" />
+			<X class="size-5" />
 			Close
 		</button>
 	</div>
 
 	<script>
 		const search = document.getElementById("search_games");
-		const gmes = document.getElementById("gmes");
-		const cards = Array.from(gmes.querySelectorAll(".game-card"));
+		const games = document.getElementById("games");
+		const cards = Array.from(games.querySelectorAll(".game-card"));
 		const openGames = new Map();
 
 		search.addEventListener("input", (e) => {
@@ -106,22 +149,22 @@ const allGmes = [...gmesData].sort((a, b) => {
 			});
 		});
 
-		gmes.addEventListener("click", (e) => {
+		games.addEventListener("click", (e) => {
 			const card = e.target.closest(".game-card");
 			if (!card) return;
 			const fn = card.dataset.file;
 			const t = card.dataset.title;
-			if (fn && t) window.opengme(fn, t, card.dataset.frame);
+			if (fn && t) window.opengame(fn, t, card.dataset.frame);
 		});
 
-		gmes.addEventListener("keydown", (e) => {
+		games.addEventListener("keydown", (e) => {
 			if (e.key !== "Enter" && e.key !== " ") return;
 			const card = e.target.closest(".game-card");
 			if (!card) return;
 			e.preventDefault();
 			const fn = card.dataset.file;
 			const t = card.dataset.title;
-			if (fn && t) window.opengme(fn, t, card.dataset.frame);
+			if (fn && t) window.opengame(fn, t, card.dataset.frame);
 		});
 
 		document.getElementById("sidebar_search").addEventListener("input", (e) => {
@@ -143,7 +186,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 
 		function hideFrames() {
 			document
-				.getElementById("gme")
+				.getElementById("game")
 				.querySelectorAll("iframe")
 				.forEach((f) => f.classList.add("hidden"));
 		}
@@ -153,7 +196,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 			if (!data || !data.frame) return;
 
 			hideFrames();
-			const container = document.getElementById("gme");
+			const container = document.getElementById("game");
 			container.classList.remove("hidden");
 			data.frame.classList.remove("hidden");
 			document.getElementById("title").textContent = data.title;
@@ -202,7 +245,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 			openGames.delete(key);
 			updateSidebar();
 
-			const container = document.getElementById("gme");
+			const container = document.getElementById("game");
 			if (!container.querySelector("iframe")) {
 				if (openGames.size) {
 					showGame(openGames.keys().next().value);
@@ -213,7 +256,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 			}
 		}
 
-		window.opengme = async (file_name, title, frameGme) => {
+		window.opengame = async (file_name, title, frameGame) => {
 			const key = file_name.replace(/[^a-zA-Z0-9]/g, "_");
 			if (openGames.has(key)) {
 				showGame(key);
@@ -221,12 +264,12 @@ const allGmes = [...gmesData].sort((a, b) => {
 			}
 
 			hideFrames();
-			const container = document.getElementById("gme");
+			const container = document.getElementById("game");
 			const frame = document.createElement("iframe");
 			frame.id = `frame-${key}`;
 			frame.title = "game";
 
-			openGames.set(key, { title, file_name, frameGme, frame });
+			openGames.set(key, { title, file_name, frameGame, frame });
 			addToSidebar(key, title);
 			updateSidebar();
 
@@ -234,7 +277,7 @@ const allGmes = [...gmesData].sort((a, b) => {
 			container.classList.remove("hidden");
 			document.body.style.overflow = "hidden";
 
-			if (frameGme == "true") {
+			if (frameGame == "true") {
 				frame.src = `https://raw.githack.com/hydra-network/asseting-bromine/main/${file_name}`;
 			} else {
 				frame.onload = async function () {
@@ -260,13 +303,13 @@ const allGmes = [...gmesData].sort((a, b) => {
 			container.append(frame);
 		};
 
-		window.closegme = () => {
+		window.closegame = () => {
 			hideFrames();
-			document.getElementById("gme").classList.add("hidden");
+			document.getElementById("game").classList.add("hidden");
 			document.body.style.overflow = "";
 		};
 
-		document.getElementById("back").addEventListener("click", closegme);
+		document.getElementById("back").addEventListener("click", closegame);
 		document.getElementById("close_all_games").addEventListener("click", () => {
 			[...openGames.keys()].forEach(closeGame);
 		});
