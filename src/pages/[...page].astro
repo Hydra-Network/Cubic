@@ -62,12 +62,12 @@ const { page } = Astro.props;
 	<nav
 		class="sticky top-0 z-20 flex justify-center py-3 shadow-md backdrop-blur"
 	>
-		<div class="bg-slate-800 flex w-full max-w-xl items-center px-3 shadow">
-			<img src="/logo.webp" alt="Cubic Logo" class="h-8 w-auto mr-3" />
+		<div class="bg-slate-800 flex w-full max-w-xl items-center pl-3 pr-0 shadow gap-3">
+			<img src="/logo.webp" alt="Cubic Logo" class="h-8 w-auto flex-shrink-0" />
 			<input
 				id="search_games"
 				type="text"
-				class="w-full flex-1 bg-transparent py-2 text-center -ml-11 focus:outline-none"
+				class="w-full flex-1 bg-slate-900 border border-slate-800 py-2 text-center text-sm placeholder:text-slate-400 focus:outline-none focus:border-slate-700 hover:border-slate-700 transition-colors"
 				placeholder={`Search from ${gamesData.length} games`}
 			/>
 		</div>
