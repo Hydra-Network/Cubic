@@ -3,47 +3,40 @@ import { Search } from "@lucide/astro";
 ---
 
 <aside
-	class="z-30 w-72 flex-shrink-0 flex flex-col h-screen fixed top-0 left-0"
-	style="background: var(--bg-deep); border-right: 1px solid var(--border-subtle);"
+	class="z-30 w-72 flex-shrink-0 flex flex-col h-screen fixed top-0 left-0 bg-deep border-r border-subtle"
 >
-	<div class="p-4" style="border-bottom: 1px solid var(--border-subtle);">
-		<h1 class="text-lg font-bold tracking-tight mb-3" style="color: var(--text-primary);">
-			Cubic
-		</h1>
+	<div class="p-4 border-b border-subtle">
+		<h1 class="text-lg font-bold tracking-tight mb-3 text-primary">Cubic</h1>
 		<div class="relative">
 			<Search
-				class="absolute left-3 top-1/2 -translate-y-1/2 size-4"
-				style="color: var(--text-muted);"
+				class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted"
 			/>
 			<input
 				id="sidebar_search"
 				type="text"
 				placeholder="Search here gang :P"
-				class="w-full py-2 pl-9 pr-3 text-sm transition-all duration-200"
-				style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-primary);"
+				class="w-full py-2 pl-9 pr-3 text-sm transition-all duration-200 bg-card border border-subtle text-primary"
 			/>
 		</div>
 	</div>
 
 	<div class="flex-1 overflow-y-auto p-3">
 		<p
-			class="text-xs uppercase tracking-wider font-medium mb-2 px-1"
-			style="color: var(--text-muted);"
+			class="text-xs uppercase tracking-wider font-medium mb-2 px-1 text-muted"
 		>
 			Open Games
 		</p>
 		<div id="opened_games" class="space-y-1">
-			<p id="no_games_hint" class="text-sm italic px-1 py-2" style="color: var(--text-muted);">
+			<p id="no_games_hint" class="text-sm italic px-1 py-2 text-muted">
 				No games open yet
 			</p>
 		</div>
 	</div>
 
-	<div class="p-3" style="border-top: 1px solid var(--border-subtle);">
+	<div class="p-3 border-t border-subtle">
 		<button
 			id="close_all_games"
-			class="w-full flex items-center justify-center gap-2 py-2 px-3 text-sm transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
-			style="background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border-subtle);"
+			class="w-full flex items-center justify-center gap-2 py-2 px-3 text-sm transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed bg-card text-secondary border border-subtle"
 			disabled
 		>
 			Close All

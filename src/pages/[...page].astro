@@ -60,19 +60,16 @@ const { page } = Astro.props;
 <Layout>
 	<!-- navbar -->
 	<nav
-		class="sticky top-0 z-20 flex justify-center py-3"
-		style="background: linear-gradient(180deg, var(--bg-deep) 0%, transparent 100%); backdrop-filter: blur(16px);"
+		class="sticky top-0 z-20 flex justify-center py-3 bg-gradient-to-b from-deep to-transparent backdrop-blur-xl"
 	>
-		<div 
-			class="flex w-full max-w-xl items-center pl-3 pr-0 gap-3"
-			style="background: var(--bg-card); border: 1px solid var(--border-subtle); box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);"
+		<div
+			class="flex w-full max-w-xl items-center pl-3 pr-0 gap-3 bg-card border border-subtle shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
 		>
 			<img src="/logo.webp" alt="Cubic Logo" class="h-8 w-auto flex-shrink-0" />
 			<input
 				id="search_games"
 				type="text"
-				class="w-full flex-1 py-2 text-center text-sm transition-all duration-200"
-				style="background: var(--bg-deep); border: 1px solid var(--border-subtle); color: var(--text-primary);"
+				class="w-full flex-1 py-2 text-center text-sm transition-all duration-200 bg-deep border border-subtle text-primary"
 				placeholder={`Search from ${gamesData.length} games`}
 			/>
 		</div>
@@ -92,8 +89,7 @@ const { page } = Astro.props;
 			page.url.prev ? (
 				<a
 					href={page.url.prev}
-					class="px-4 py-2 transition-all duration-200 flex items-center gap-2 hover:scale-105"
-					style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); color: var(--text-primary);"
+					class="px-4 py-2 transition-all duration-200 flex items-center gap-2 hover:scale-105 bg-elevated border border-subtle text-primary"
 				>
 					<ArrowLeft />
 					Previous
@@ -103,7 +99,7 @@ const { page } = Astro.props;
 			)
 		}
 
-		<span style="color: var(--text-secondary);">
+		<span class="text-secondary">
 			Page {page.currentPage} of {page.lastPage}
 		</span>
 
@@ -111,8 +107,7 @@ const { page } = Astro.props;
 			page.url.next ? (
 				<a
 					href={page.url.next}
-					class="px-4 py-2 transition-all duration-200 flex items-center gap-2 hover:scale-105"
-					style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); color: var(--text-primary);"
+					class="px-4 py-2 transition-all duration-200 flex items-center gap-2 hover:scale-105 bg-elevated border border-subtle text-primary"
 				>
 					Next <ArrowRight />
 				</a>
@@ -125,20 +120,17 @@ const { page } = Astro.props;
 	<!-- play -->
 	<div
 		id="game"
-		class="fixed top-0 right-0 bottom-0 left-0 z-[999] hidden"
-		style="background: rgba(10, 14, 23, 0.95);"
+		class="fixed top-0 right-0 bottom-0 left-0 z-[999] hidden bg-deep-darker/95"
 	>
 		<h2
 			id="title"
-			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold"
-			style="color: var(--text-primary);"
+			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold text-primary"
 		>
 		</h2>
 
 		<button
 			id="back"
-			class="absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center px-4 py-2 transition-all duration-200 gap-1"
-			style="background: var(--bg-elevated); border: 1px solid var(--border-subtle); color: var(--text-primary);"
+			class="absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center px-4 py-2 transition-all duration-200 gap-1 bg-elevated border border-subtle text-primary"
 		>
 			<X class="size-5" />
 			Close
@@ -215,8 +207,7 @@ const { page } = Astro.props;
 
 			document.querySelectorAll(".sidebar-game-item").forEach((el) => {
 				const isActive = el.id === `sidebar-${key}`;
-				el.style.background = isActive ? "var(--bg-elevated)" : "var(--bg-card)";
-				el.style.borderColor = isActive ? "var(--border-active)" : "var(--border-subtle)";
+				el.className = `border ${isActive ? "bg-elevated border-active" : "bg-card border-subtle"}`;
 			});
 		}
 
@@ -225,17 +216,16 @@ const { page } = Astro.props;
 			const item = document.createElement("div");
 			item.id = `sidebar-${key}`;
 			item.dataset.title = title;
-			item.className = "sidebar-game-item group flex items-center gap-2 px-3 py-2 cursor-pointer transition-all duration-200";
-			item.style.cssText = "background: var(--bg-card); border: 1px solid var(--border-subtle);";
+			item.className =
+				"sidebar-game-item group flex items-center gap-2 px-3 py-2 cursor-pointer transition-all duration-200 bg-card border border-subtle";
 
 			const span = document.createElement("span");
-			span.className = "flex-1 text-sm truncate";
-			span.style.color = "var(--text-secondary)";
+			span.className = "flex-1 text-sm truncate text-secondary";
 			span.textContent = title;
 
 			const btn = document.createElement("button");
-			btn.className = "opacity-0 group-hover:opacity-100 p-1 transition-opacity";
-			btn.style.color = "var(--text-muted)";
+			btn.className =
+				"opacity-0 group-hover:opacity-100 p-1 transition-opacity text-muted";
 			btn.innerHTML = `<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
 			btn.onclick = (e) => {
 				e.stopPropagation();

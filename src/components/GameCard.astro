@@ -13,19 +13,16 @@ const thumb_url = thumb
 	: null;
 ---
 
-<!-- <div --><!-- 	data-title={title} --><!-- 	data-file={file_name} --><!-- 	data-frame={frame} --><!-- 	role="button" --><!-- 	tabindex="0" --><!-- 	class="game-card bg-slate-900 border border-slate-700 rounded-xl p-3 m-2 inline-block w-64 text-center shadow-sm transition-transform duration-200 hover:scale-105 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-500" --><!-- > --><!-- 	{ --><!-- 		thumb_url ? ( --><!-- 			<img --><!-- 				src={thumb_url} --><!-- 				loading="eager" --><!-- 				decoding="async" --><!-- 				alt={title} --><!-- 				height="230" --><!-- 				width="230" --><!-- 				class="w-full h-40 object-cover rounded-lg mb-2" --><!-- 			/> --><!-- 		) : ( --><!-- 			<div class="w-full h-40 rounded-lg bg-slate-800 mb-2 flex items-center justify-center"> --><!-- 				<p class="text-slate-500">No Image</p> --><!-- 			</div> --><!-- 		) --><!-- 	} --><!-- 	<h3 class="mt-2 font-medium truncate">{title}</h3> --><!-- </div> -->
 <div
 	data-title={title}
 	data-file={file_name}
 	data-frame={frame}
 	role="button"
 	tabindex="0"
-	class="game-card inline-block w-72 cursor-pointer transition-all duration-200 hover:scale-105 hover:-translate-y-1"
-	style="border: 1px solid var(--border-subtle); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);"
+	class="game-card inline-block w-72 cursor-pointer transition-all duration-200 hover:scale-105 hover:-translate-y-1 border border-subtle shadow-xl"
 >
 	<div
-		class="game-card-image h-40 flex items-center justify-center overflow-hidden"
-		style="background: var(--bg-deep);"
+		class="game-card-image h-40 flex items-center justify-center overflow-hidden bg-deep"
 	>
 		{
 			thumb_url ? (
@@ -39,8 +36,10 @@ const thumb_url = thumb
 			) : null
 		}
 	</div>
-	<div class="game-card-info px-4 py-3" style="background: var(--bg-card); border-top: 1px solid var(--border-subtle);">
-		<h3 class="text-xl font-semibold mb-1" style="color: var(--text-primary);">{title}</h3>
-		<p class="text-sm" style="color: var(--text-muted);">/{file_name}</p>
+	<div class="game-card-info px-4 py-3 bg-card border border-subtle">
+		<h3 class="text-xl font-semibold mb-1 text-primary">
+			{title}
+		</h3>
+		<p class="text-sm text-muted">/{file_name}</p>
 	</div>
 </div>
