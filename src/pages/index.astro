@@ -1,0 +1,135 @@
+---
+import Layout from "@/Layout.astro";
+import { ArrowLeft, ArrowRight, X } from "@lucide/astro";
+import gamesData from "@/games.json";
+import GameCard from "@/components/GameCard.astro";
+
+const popularGames = [
+	"Hollow Knight",
+	"ULTRAKILL",
+	"Celeste",
+	"Katana ZERO",
+	"Dead Cells",
+	"Hyper Light Drifter",
+	"DOOM",
+	"Doom 64",
+	"Castlevania",
+	"Castlevania Aria of Sorrow",
+	"Super Meat Boy",
+	"Cuphead",
+	"Among Us",
+	"Cookie Clicker",
+	"Baldis Basics",
+	"Buckshot Roulette",
+	"A Dark Room",
+	"Binding of Isaac",
+	"Undertale",
+	"Deltarune",
+	"Celeste 2",
+	"Alien Hominid",
+	"Chaos Faction 2",
+	"Bloons TD 5",
+	"Age of War",
+	"Duck Life",
+	"Burrito Bison",
+	"Happy Wheels",
+	"Cluster Rush",
+	"Drive Mad",
+];
+
+const allGames = [...gamesData].sort((a, b) => {
+	const aIsPopular = popularGames.includes(a.title);
+	const bIsPopular = popularGames.includes(b.title);
+
+	if (aIsPopular && !bIsPopular) return -1;
+	if (!aIsPopular && bIsPopular) return 1;
+	if (aIsPopular && bIsPopular) {
+		return popularGames.indexOf(a.title) - popularGames.indexOf(b.title);
+	}
+	return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+});
+---
+
+<Layout>
+	<!-- navbar -->
+	<nav
+		class="sticky top-0 z-20 flex justify-center py-3 bg-gradient-to-b from-deep to-transparent backdrop-blur-xl"
+	>
+		<div
+			class="flex w-full max-w-xl items-center pl-3 pr-0 gap-3 bg-card border border-subtle shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+		>
+			<img src="/logo.webp" alt="Cubic Logo" class="h-8 w-auto flex-shrink-0" />
+			<input
+				id="search_games"
+				type="text"
+				class="w-full flex-1 py-2 text-center text-sm transition-all duration-200 bg-deep border border-subtle text-primary"
+				placeholder={`Search from ${gamesData.length} games`}
+			/>
+		</div>
+	</nav>
+
+	<!-- games -->
+	<section
+		id="games"
+		class="flex flex-wrap justify-center gap-6 p-6 max-w-[1400px] mx-auto"
+	>
+		{
+			allGames.map((game, index) => (
+				<div class={`game-item ${index >= 20 ? "hidden" : ""}`}>
+					<GameCard {...game} />
+				</div>
+			))
+		}
+	</section>
+
+	<div id="load-more-trigger" class="h-10">Loading...</div>
+
+	<script>
+		// Vanilla JS Intersection Observer
+		const trigger = document.getElementById("load-more-trigger");
+		const hiddenItems = document.querySelectorAll(".game-item.hidden");
+		let currentIndex = 0;
+
+		const observer = new IntersectionObserver((entries) => {
+			if (entries[0].isIntersecting) {
+				// Reveal next 20 items
+				const batch = Array.from(hiddenItems).slice(
+					currentIndex,
+					currentIndex + 20,
+				);
+
+				batch.forEach((item) => item.classList.remove("hidden"));
+				currentIndex += 20;
+
+				// Stop observing if we revealed everything
+				if (currentIndex >= hiddenItems.length) {
+					observer.disconnect();
+				}
+			}
+		});
+
+		observer.observe(trigger);
+	</script>
+
+	<!-- play -->
+	<div
+		id="game"
+		class="fixed top-0 right-0 bottom-0 left-0 z-[999] hidden bg-deep-darker/95"
+	>
+		<h2
+			id="title"
+			class="absolute top-[15px] left-[20px] z-50 text-3xl font-bold text-primary"
+		>
+		</h2>
+
+		<button
+			id="back"
+			class="absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center px-4 py-2 transition-all duration-200 gap-1 bg-elevated border border-subtle text-primary"
+		>
+			<X class="size-5" />
+			Close
+		</button>
+	</div>
+
+	<script src="@/games.ts"></script>
+</Layout>
