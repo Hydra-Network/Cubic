@@ -2,6 +2,7 @@
 import { SEO } from "astro-seo";
 import "@/style.css";
 import Sidebar from "@/components/Sidebar.astro";
+import { ClientRouter } from "astro:transitions";
 
 export interface Props {
 	title?: string;
@@ -61,6 +62,7 @@ const imageURL =
 					});
 			}
 		</script>
+		<ClientRouter />
 	</head>
 
 	<body class="bg-slate-900 text-gray-50 flex min-h-screen flex-row">
