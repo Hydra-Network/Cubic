@@ -32,12 +32,12 @@ button:active {
   transform: scale(0.95);
 }
 
-[data-icon] {
-  stroke-width: 3;
+.lucide {
+  stroke-width: 2.5;
 }
 
 /* game frames */
-#gme iframe {
+#game iframe {
   @apply absolute top-0 left-0 h-full w-full border-none;
 }
 
