@@ -1,23 +1,21 @@
 @import "tailwindcss";
 
-
 @theme {
-	/* background */
+  /* background */
   --color-deep: #131a2a;
   --color-deep-darker: #0a0e17;
   --color-card: #1a2338;
   --color-elevated: #212c45;
   --color-hover: #2a3654;
 
-	/* border */
+  /* border */
   --color-subtle: rgba(148, 163, 184, 0.15);
   --color-active: rgba(148, 163, 184, 0.3);
 
-	/* text */
+  /* text */
   --color-primary: #f8fafc;
   --color-secondary: #cbd5e1;
   --color-muted: #94a3b8;
-
 
   --shadow-xl: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
@@ -27,11 +25,11 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('/bg.webp');
+  background-image: url("/bg.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

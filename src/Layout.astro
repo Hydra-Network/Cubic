@@ -4,76 +4,76 @@ import "@/style.css";
 import Sidebar from "@/components/Sidebar.astro";
 
 export interface Props {
-	title?: string;
-	desc?: string;
+  title?: string;
+  desc?: string;
 }
 
 const FILTER_OPTIMIZE_ON = import.meta.env.PUBLIC_FILTER_OPTIMIZE === "true";
 
 const {
-	desc = FILTER_OPTIMIZE_ON
-		? "Cubic is the world's most populars learning site for K-12 level geometry. Used by more almost 1 million students, Cubic provides personalized learning in more than 500 languages."
-		: "Cubic is a innovational and powerful game site.",
+  desc = FILTER_OPTIMIZE_ON
+    ? "Cubic is the world's most populars learning site for K-12 level geometry. Used by more almost 1 million students, Cubic provides personalized learning in more than 500 languages."
+    : "Cubic is a innovational and powerful game site.",
 } = Astro.props;
 
 const imageURL = "/image.png";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
 
-		<SEO
-			title="Cubic"
-			description={desc}
-			openGraph={{
-				basic: {
-					title: "Cubic",
-					type: "website",
-					image: imageURL,
-				},
-			}}
-			twitter={{
-				title: "Cubic",
-				image: imageURL,
-				description: desc,
-				card: "summary_large_image",
-			}}
-			extend={{
-				link: [{ rel: "icon", href: "/favicon.ico" }],
-			}}
-		/>
-		<script>
-			if ("serviceWorker" in navigator) {
-				navigator.serviceWorker
-					.register("/sw.js")
-					.then((registration) => {
-						console.log(
-							"Service worker registration succeeded:",
-							registration.scope,
-						);
-					})
-					.catch((error) => {
-						console.error("Service worker registration failed:", error);
-					});
-			}
-		</script>
-	</head>
+    <SEO
+      title="Cubic"
+      description={desc}
+      openGraph={{
+        basic: {
+          title: "Cubic",
+          type: "website",
+          image: imageURL,
+        },
+      }}
+      twitter={{
+        title: "Cubic",
+        image: imageURL,
+        description: desc,
+        card: "summary_large_image",
+      }}
+      extend={{
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+      }}
+    />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((registration) => {
+            console.log(
+              "Service worker registration succeeded:",
+              registration.scope,
+            );
+          })
+          .catch((error) => {
+            console.error("Service worker registration failed:", error);
+          });
+      }
+    </script>
+  </head>
 
-	<body class="flex min-h-screen flex-row bg-deep text-primary">
-		<a
-			href="#main"
-			class="absolute top-4 left-4 z-50 -translate-y-16 transform px-4 py-2 opacity-0 shadow-lg transition-all duration-300 ease-in-out focus:translate-y-0 focus:opacity-100 bg-elevated text-primary"
-		>
-			Skip to main content
-		</a>
+  <body class="flex min-h-screen flex-row bg-deep text-primary">
+    <a
+      href="#main"
+      class="absolute top-4 left-4 z-50 -translate-y-16 transform px-4 py-2 opacity-0 shadow-lg transition-all duration-300 ease-in-out focus:translate-y-0 focus:opacity-100 bg-elevated text-primary"
+    >
+      Skip to main content
+    </a>
 
-		<Sidebar />
+    <Sidebar />
 
-		<main id="main" class="flex flex-grow flex-col">
-			<slot />
-		</main>
-	</body>
+    <main id="main" class="flex flex-grow flex-col">
+      <slot />
+    </main>
+  </body>
 </html>
