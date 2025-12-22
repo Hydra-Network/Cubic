@@ -1,45 +1,72 @@
 ---
-import { Search } from "@lucide/astro";
+import { Search, PanelLeftClose, PanelRightClose } from "@lucide/astro";
 ---
 
 <aside
-  class="z-30 w-72 flex-shrink-0 flex flex-col h-screen fixed top-0 left-0 bg-deep border-r border-subtle"
+	id="sidebar"
+	class="z-30 w-72 flex-shrink-0 flex flex-col h-screen fixed top-0 left-0 bg-deep border-r border-subtle transition-all duration-300"
 >
-  <div class="p-4 border-b border-subtle">
-    <h1 class="text-lg font-bold tracking-tight mb-3 text-primary">Cubic</h1>
-    <div class="relative">
-      <Search
-        class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted"
-      />
-      <input
-        id="sidebar_search"
-        type="text"
-        placeholder="Search here gang :P"
-        class="w-full py-2 pl-9 pr-3 text-sm transition-all duration-200 bg-card border border-subtle text-primary"
-      />
-    </div>
-  </div>
+	<div class="p-4 border-b border-subtle flex items-center justify-between">
+		<h1 class="text-lg font-bold tracking-tight text-primary">Cubic</h1>
+		<button id="collapse_btn" class="text-primary">
+			<PanelLeftClose class="uncollpased" />
+			<PanelRightClose class="collpased" />
+		</button>
+	</div>
+	<div class="p-4 border-b border-subtle">
+		<div class="relative">
+			<Search
+				class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted"
+			/>
+			<input
+				id="sidebar_search"
+				type="text"
+				placeholder="Search here gang :P"
+				class="w-full py-2 pl-9 pr-3 text-sm transition-all duration-200 bg-card border border-subtle text-primary"
+			/>
+		</div>
+	</div>
 
-  <div class="flex-1 overflow-y-auto p-3">
-    <p
-      class="text-xs uppercase tracking-wider font-medium mb-2 px-1 text-muted"
-    >
-      Open Games
-    </p>
-    <div id="opened_games" class="space-y-1">
-      <p id="no_games_hint" class="text-sm italic px-1 py-2 text-muted">
-        No games open yet
-      </p>
-    </div>
-  </div>
+	<div class="flex-1 overflow-y-auto p-3">
+		<p
+			class="text-xs uppercase tracking-wider font-medium mb-2 px-1 text-muted"
+		>
+			Open Games
+		</p>
+		<div id="opened_games" class="space-y-1">
+			<p id="no_games_hint" class="text-sm italic px-1 py-2 text-muted">
+				No games open yet
+			</p>
+		</div>
+	</div>
 
-  <div class="p-3 border-t border-subtle">
-    <button
-      id="close_all_games"
-      class="w-full flex items-center justify-center gap-2 py-2 px-3 text-sm transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed bg-card text-secondary border border-subtle"
-      disabled
-    >
-      Close All
-    </button>
-  </div>
+	<div class="p-3 border-t border-subtle">
+		<button
+			id="close_all_games"
+			class="w-full flex items-center justify-center gap-2 py-2 px-3 text-sm transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed bg-card text-secondary border border-subtle"
+			disabled
+		>
+			Close All
+		</button>
+	</div>
 </aside>
+
+<script>
+	const sidebar = document.getElementById("sidebar");
+	document.getElementById("collapse_btn").addEventListener("click", () => {
+		sidebar.classList.toggle("collapsed");
+	});
+</script>
+
+<style>
+	#sidebar .collpased {
+		display: none;
+	}
+	#sidebar.collapsed .collpased {
+		display: block;
+	}
+	#sidebar.collapsed .uncollpased {
+		display: none;
+	}
+</style>
+

@@ -110,3 +110,17 @@ button:active {
 #opened_games button:active {
   transform: none !important;
 }
+
+aside.collapsed {
+  width: 4rem;
+}
+
+aside.collapsed > div:not(:first-child) {
+  display: none;
+}
+
+aside.collapsed h1 {
+  display: none;
+}
+
+
