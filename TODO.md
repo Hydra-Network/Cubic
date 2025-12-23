@@ -6,3 +6,4 @@
 - [x] collapsable sidebar
 - [ ] settings
 - [ ] onboarding
+- [ ] no auto paginate just a button for view more
