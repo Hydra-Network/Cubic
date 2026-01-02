@@ -6348,5 +6348,15 @@
 		"file_name": "slice-master/index.html",
 		"frame": "true",
 		"thumb": "thumbs/slice-master.avif"
+	},
+	{
+		"title": "People Playground",
+		"file_name": "people-playground/index.html",
+		"thumb": "thumbs/people-playground.avif"
+	},
+	{
+		"title": "Getting Over It",
+		"file_name": "getting-over-it/index.html",
+		"thumb": "thumbs/getting-over-it.avif"
 	}
 ]
