@@ -2,7 +2,7 @@ const search = document.getElementById("search_games");
 const games = document.getElementById("games");
 const cards = Array.from(games.querySelectorAll(".game-card"));
 const openGames = new Map();
-
+let activeGame = null;
 search.addEventListener("input", (e) => {
   const q = e.target.value.toLowerCase();
 
@@ -64,7 +64,7 @@ function hideFrames() {
 function showGame(key) {
   const data = openGames.get(key);
   if (!data || !data.frame) return;
-
+  activeGame = key;
   hideFrames();
   const container = document.getElementById("game");
   container.classList.remove("hidden");
@@ -97,15 +97,17 @@ function addToSidebar(key, title) {
   btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`;
   btn.onclick = (e) => {
     e.stopPropagation();
-    closeGame(key);
+    closeAll(key);
   };
 
   item.onclick = () => showGame(key);
   item.append(span, btn);
   list.appendChild(item);
+  console.log("Added to sidebar:", key);
 }
 
-function closeGame(key) {
+function closeAll(key) {
+  console.log("Closing game:", key);
   const data = openGames.get(key);
   if (data && data.frame) {
     data.frame.src = "about:blank";
@@ -132,7 +134,7 @@ window.opengame = async (file_name, title, frameGame) => {
     showGame(key);
     return;
   }
-
+  activeGame = key;
   hideFrames();
   const container = document.getElementById("game");
   const frame = document.createElement("iframe");
@@ -140,7 +142,6 @@ window.opengame = async (file_name, title, frameGame) => {
   frame.title = "game";
 
   openGames.set(key, { title, file_name, frameGame, frame });
-  addToSidebar(key, title);
   updateSidebar();
 
   document.getElementById("title").textContent = title;
@@ -173,13 +174,26 @@ window.opengame = async (file_name, title, frameGame) => {
   container.append(frame);
 };
 
-window.closegame = () => {
+function minimize() {
+  const data = openGames.get(activeGame);
+  if (!document.getElementById(`sidebar-${activeGame}`)) {
+    addToSidebar(activeGame, data.title);
+  }
   hideFrames();
   document.getElementById("game").classList.add("hidden");
   document.body.style.overflow = "";
-};
+  addToSidebar(key, title);
+  activeGameKey = null;
+}
+function close() {
+  hideFrames();
+  document.getElementById("game").classList.add("hidden");
+  document.body.style.overflow = "";
+}
 
-document.getElementById("back").addEventListener("click", closegame);
+document.getElementById("minimizeGame").addEventListener("click", minimize);
+document.getElementById("closeGame").addEventListener("click", close);
+
 document.getElementById("close_all_games").addEventListener("click", () => {
-  [...openGames.keys()].forEach(closeGame);
+  [...openGames.keys()].forEach(closeAll);
 });

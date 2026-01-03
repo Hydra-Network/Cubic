@@ -1,6 +1,6 @@
 ---
 import Layout from "@/Layout.astro";
-import { ArrowLeft, ArrowRight, X } from "@lucide/astro";
+import { ArrowLeft, ArrowRight, X, Minus } from "@lucide/astro";
 import gamesData from "@/games.json";
 import GameCard from "@/components/GameCard.astro";
 
@@ -12,7 +12,7 @@ const popularGames = [
   "Dead Cells",
   "Hyper Light Drifter",
   "DOOM",
-	"Doom 64",
+  "Doom 64",
   "Balatro",
   "Castlevania",
   "Castlevania Aria of Sorrow",
@@ -35,7 +35,7 @@ const popularGames = [
   "Burrito Bison",
   "Happy Wheels",
   "Cluster Rush",
-	"Drive Mad",
+  "Drive Mad",
 ];
 
 const allGames = [...gamesData].sort((a, b) => {
@@ -96,7 +96,7 @@ const allGames = [...gamesData].sort((a, b) => {
         // Reveal next 20 items
         const batch = Array.from(hiddenItems).slice(
           currentIndex,
-          currentIndex + 20,
+          currentIndex + 20
         );
 
         batch.forEach((item) => item.classList.remove("hidden"));
@@ -124,13 +124,19 @@ const allGames = [...gamesData].sort((a, b) => {
     </h2>
 
     <button
-      id="back"
+      id="closeGame"
       class="absolute top-[15px] right-[20px] z-50 flex cursor-pointer items-center px-4 py-2 transition-all duration-200 gap-1 bg-elevated border border-subtle text-primary"
     >
       <X class="size-5" />
-      Close
+    </button>
+
+    <button
+      id="minimizeGame"
+      class="absolute top-[15px] right-[80px] z-50 flex cursor-pointer items-center px-4 py-2 transition-all duration-200 gap-1 bg-elevated border border-subtle text-primary"
+    >
+      <Minus class="size-5" />
     </button>
   </div>
 
-  <script src="@/games.ts"></script>
+  <script src="@/games.js"></script>
 </Layout>
