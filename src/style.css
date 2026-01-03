@@ -124,3 +124,12 @@ aside.collapsed h1 {
 }
 
 
+.tailwindIsStupid  {
+  margin-bottom: 50px !important;
+}
+.fuckTailwind {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+}

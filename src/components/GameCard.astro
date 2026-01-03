@@ -10,7 +10,7 @@ const { file_name, title, thumb, frame } = Astro.props;
 
 const thumb_url = thumb
   ? `https://cdn.jsdelivr.net/gh/Hydra-Network/asseting-bromine@main/${thumb}`
-  : null;
+  : "/placeholder-game.webp"; // Fallback image
 ---
 
 <div
@@ -19,27 +19,46 @@ const thumb_url = thumb
   data-frame={frame}
   role="button"
   tabindex="0"
-  class="game-card inline-block w-72 cursor-pointer transition-all duration-200 hover:scale-105 hover:-translate-y-1 border border-subtle shadow-xl"
+  class="game-card group relative w-full overflow-hidden rounded-xl bg-card transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] border border-white/5 hover:border-white/20"
 >
-  <div
-    class="game-card-image h-40 flex items-center justify-center overflow-hidden bg-deep"
-  >
-    {
-      thumb_url ? (
-        <img
-          src={thumb_url}
-          loading="lazy"
-          decoding="async"
-          alt={title}
-          class="w-full h-full object-cover"
-        />
-      ) : null
-    }
+  <div class="relative aspect-video overflow-hidden bg-deep">
+    <img
+      src={thumb_url}
+      loading="lazy"
+      decoding="async"
+      alt={title}
+      style="width: 320px; height: 180px;"
+      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:opacity-60"
+    />
+
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity"
+    >
+    </div>
+
+    <div
+      class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+    >
+      <div class="bg-white/40 p-3 rounded-full border border-white/30">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-8 h-8 text-white fill-current"
+          viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg
+        >
+      </div>
+    </div>
   </div>
-  <div class="game-card-info px-4 py-3 bg-card border border-subtle">
-    <h3 class="text-xl font-semibold mb-1 text-primary">
+
+  <div class="p-4 relative fuckTailwind">
+    <h3
+      class="truncate text-lg font-bold tracking-tight text-white group-hover:text-primary transition-colors flex-row"
+    >
       {title}
     </h3>
-    <p class="text-sm text-muted">/{file_name}</p>
+    <span
+      class="text-[9px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-muted flex-end ml-auto"
+    >
+      theme placeholder
+    </span>
   </div>
 </div>
