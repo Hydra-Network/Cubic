@@ -76,14 +76,24 @@ const allGames = [...gamesData].sort((a, b) => {
   >
     {
       allGames.map((game, index) => (
-        <div class={`game-item ${index >= 20 ? "hidden" : ""}`}>
+        <div class={`game-item ${index >= 20 ? "hidden opacity-0" : "opacity-100"} transition-opacity duration-500`}>
           <GameCard {...game} />
         </div>
       ))
     }
   </section>
 
-  <div id="load-more-trigger" class="h-10">Loading...</div>
+  <div
+    id="load-more-trigger"
+    class="w-full flex flex-col items-center justify-center py-20"
+  >
+    <div class="flex items-center gap-2 mb-6">
+      <div class="loading-dot h-2.5 w-2.5 rounded-full bg-muted animate-bounce"></div>
+      <div class="loading-dot h-2.5 w-2.5 rounded-full bg-muted animate-bounce"></div>
+      <div class="loading-dot h-2.5 w-2.5 rounded-full bg-muted animate-bounce"></div>
+    </div>
+    <p class="text-sm text-muted font-medium">Loading more games...</p>
+  </div>
 
   <script>
     // Vanilla JS Intersection Observer
@@ -93,18 +103,26 @@ const allGames = [...gamesData].sort((a, b) => {
 
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        // Reveal next 20 items
         const batch = Array.from(hiddenItems).slice(
           currentIndex,
           currentIndex + 20
         );
 
-        batch.forEach((item) => item.classList.remove("hidden"));
+        batch.forEach((item, index) => {
+          setTimeout(() => {
+            item.classList.remove("hidden");
+            requestAnimationFrame(() => {
+              item.classList.remove("opacity-0");
+              item.classList.add("opacity-100");
+            });
+          }, index * 30);
+        });
+
         currentIndex += 20;
 
-        // Stop observing if we revealed everything
         if (currentIndex >= hiddenItems.length) {
           observer.disconnect();
+          trigger.classList.add("hidden");
         }
       }
     });
