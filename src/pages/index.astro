@@ -53,22 +53,22 @@ const allGames = [...gamesData].sort((a, b) => {
 
 <Layout>
   <!-- navbar -->
-  <nav
-    class="sticky top-0 z-20 flex justify-center py-3 bg-gradient-to-b from-deep to-transparent backdrop-blur-xl"
-  >
+  <nav class="tailwindIsStupid sticky top-4 z-50 flex justify-center px-4 pointer-events-none" >
     <div
-      class="flex w-full max-w-xl items-center pl-3 pr-0 gap-3 bg-card border border-subtle shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
+      class="flex w-full max-w-2xl items-center pl-4 pr-2 gap-3 bg-card/80 backdrop-blur-md border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] rounded-2xl pointer-events-auto transition-all duration-300 focus-within:border-primary/50 focus-within:shadow-[0_0_20px_rgba(var(--primary-rgb),0.2)] focus-within:bg-card"
     >
-      <img src="/logo.webp" alt="Cubic Logo" class="h-8 w-auto flex-shrink-0" />
-      <input
-        id="search_games"
-        type="text"
-        class="w-full flex-1 py-2 text-center text-sm transition-all duration-200 bg-deep border border-subtle text-primary"
-        placeholder={`Search from ${gamesData.length} games`}
-      />
+      <img src="/logo.webp" alt="Logo" class="h-6 w-auto opacity-90" />
+
+      <div class="relative flex-1">
+        <input
+          id="search_games"
+          type="text"
+          class="w-full py-3 bg-transparent text-sm text-primary placeholder:text-subtle/50 outline-none"
+          placeholder={`Search from ${gamesData.length} games...`}
+        />
+      </div>
     </div>
   </nav>
-
   <!-- games -->
   <section
     id="games"
@@ -96,7 +96,7 @@ const allGames = [...gamesData].sort((a, b) => {
         // Reveal next 20 items
         const batch = Array.from(hiddenItems).slice(
           currentIndex,
-          currentIndex + 20
+          currentIndex + 20,
         );
 
         batch.forEach((item) => item.classList.remove("hidden"));
