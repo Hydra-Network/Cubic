@@ -75,7 +75,10 @@ function showGame(key) {
 
 	document.querySelectorAll(".sidebar-game-item").forEach((el) => {
 		const isActive = el.id === `sidebar-${key}`;
-		el.className = `border ${isActive ? "bg-elevated border-active" : "bg-card border-subtle"}`;
+		el.classList.toggle("bg-elevated", isActive);
+		el.classList.toggle("border-active", isActive);
+		el.classList.toggle("bg-card", !isActive);
+		el.classList.toggle("border-subtle", !isActive);
 	});
 }
 
@@ -182,7 +185,6 @@ function minimize() {
 	hideFrames();
 	document.getElementById("game").classList.add("hidden");
 	document.body.style.overflow = "";
-	addToSidebar(key, title);
 	activeGame = null;
 }
 function close() {
