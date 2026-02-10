@@ -54,11 +54,42 @@ function updateSidebar() {
 	btn.disabled = !openGames.size;
 }
 
+function loadFrame(data) {
+	const { frame, file_name, frameGame } = data;
+	if (frameGame == "true") {
+		frame.src = `https://raw.githack.com/hydra-network/hydra-assets/main/${file_name}`;
+	} else {
+		frame.onload = async function() {
+			if (this.dataset.loaded) return;
+			const doc = this.contentDocument;
+			const html = await fetch(
+				`https://cdn.jsdelivr.net/gh/hydra-network/hydra-assets@main/${file_name}`,
+			).then((r) => r.text());
+
+			doc.open();
+			doc.write(html);
+			doc.close();
+			doc.querySelectorAll("script").forEach((s) => {
+				const ns = doc.createElement("script");
+				ns.src = s.src || "";
+				if (!s.src) ns.textContent = s.textContent;
+				s.replaceWith(ns);
+			});
+			this.dataset.loaded = "1";
+		};
+		frame.src = "/blank.html";
+	}
+}
+
 function hideFrames() {
 	document
 		.getElementById("game")
 		.querySelectorAll("iframe")
-		.forEach((f) => f.classList.add("hidden"));
+		.forEach((f) => {
+			f.src = "about:blank";
+			delete f.dataset.loaded;
+			f.classList.add("hidden");
+		});
 }
 
 function showGame(key) {
@@ -71,6 +102,8 @@ function showGame(key) {
 	data.frame.classList.remove("hidden");
 	document.getElementById("title").textContent = data.title;
 	document.body.style.overflow = "hidden";
+
+	loadFrame(data);
 	data.frame.focus();
 
 	document.querySelectorAll(".sidebar-game-item").forEach((el) => {
@@ -144,36 +177,15 @@ window.opengame = async (file_name, title, frameGame) => {
 	frame.id = `frame-${key}`;
 	frame.title = "game";
 
-	openGames.set(key, { title, file_name, frameGame, frame });
+	const data = { title, file_name, frameGame, frame };
+	openGames.set(key, data);
 	updateSidebar();
 
 	document.getElementById("title").textContent = title;
 	container.classList.remove("hidden");
 	document.body.style.overflow = "hidden";
 
-	if (frameGame == "true") {
-		frame.src = `https://raw.githack.com/hydra-network/hydra-assets/main/${file_name}`;
-	} else {
-		frame.onload = async function() {
-			if (this.dataset.loaded) return;
-			const doc = this.contentDocument;
-			const html = await fetch(
-				`https://cdn.jsdelivr.net/gh/hydra-network/hydra-assets@main/${file_name}`,
-			).then((r) => r.text());
-
-			doc.open();
-			doc.write(html);
-			doc.close();
-			doc.querySelectorAll("script").forEach((s) => {
-				const ns = doc.createElement("script");
-				ns.src = s.src || "";
-				if (!s.src) ns.textContent = s.textContent;
-				s.replaceWith(ns);
-			});
-			this.dataset.loaded = "1";
-		};
-		frame.src = "/blank.html";
-	}
+	loadFrame(data);
 	container.append(frame);
 };
 
@@ -185,6 +197,7 @@ function minimize() {
 	hideFrames();
 	document.getElementById("game").classList.add("hidden");
 	document.body.style.overflow = "";
+
 	activeGame = null;
 }
 function close() {
