@@ -1,42 +1,18 @@
 ---
 import Layout from "@/Layout.astro";
 import { ArrowLeft, ArrowRight, X, Minus } from "@lucide/astro";
-import gamesData from "@/games.json";
 import GameCard from "@/components/GameCard.astro";
 
-const popularGames = [
-  "Hollow Knight",
-  "ULTRAKILL",
-  "Celeste",
-  "Katana ZERO",
-  "Dead Cells",
-  "Hyper Light Drifter",
-  "DOOM",
-  "Doom 64",
-  "Balatro",
-  "Castlevania",
-  "Castlevania Aria of Sorrow",
-  "Super Meat Boy",
-  "Cuphead",
-  "Among Us",
-  "Cookie Clicker",
-  "Baldis Basics",
-  "Buckshot Roulette",
-  "A Dark Room",
-  "Binding of Isaac",
-  "Undertale",
-  "Deltarune",
-  "Celeste 2",
-  "Alien Hominid",
-  "Chaos Faction 2",
-  "Bloons TD 5",
-  "Age of War",
-  "Duck Life",
-  "Burrito Bison",
-  "Happy Wheels",
-  "Cluster Rush",
-  "Drive Mad",
-];
+let gamesData = [];
+
+try {
+  const response = await fetch('https://cdn.jsdelivr.net/gh/Hydra-Network/hydra-assets@main/gmes.json');
+  if (response.ok) {
+    gamesData = await response.json();
+  }
+} catch (error) {
+  console.error("Failed to fetch games:", error);
+}
 
 const allGames = [...gamesData].sort((a, b) => {
   const aIsPopular = popularGames.includes(a.title);
@@ -49,6 +25,7 @@ const allGames = [...gamesData].sort((a, b) => {
   }
   return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
 });
+
 ---
 
 <Layout>
