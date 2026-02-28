@@ -57,13 +57,13 @@ function updateSidebar() {
 function loadFrame(data) {
 	const { frame, file_name, frameGame } = data;
 	if (frameGame == "true") {
-		frame.src = `https://raw.githack.com/hydra-network/hydra-assets/main/${file_name}`;
+		frame.src = `https://raw.githack.com/hydra-network/hydra-assets/main/gmes/${file_name}`;
 	} else {
 		frame.onload = async function() {
 			if (this.dataset.loaded) return;
 			const doc = this.contentDocument;
 			const html = await fetch(
-				`https://cdn.jsdelivr.net/gh/hydra-network/hydra-assets@main/${file_name}`,
+				`https://cdn.jsdelivr.net/gh/hydra-network/hydra-assets@main/gmes/${file_name}`,
 			).then((r) => r.text());
 
 			doc.open();
